@@ -1,0 +1,3 @@
+rootProject.name = 'RNPorn'
+
+include ':app'
