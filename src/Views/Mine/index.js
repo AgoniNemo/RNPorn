@@ -8,7 +8,7 @@ type Props = {};
 export default class Mine extends Component<Props> {
 
   static navigationOptions = {
-   title: 'Mine页面',
+    title: 'Mine页面',
   };
   constructor(props){
     super(props)
