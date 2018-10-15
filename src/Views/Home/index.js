@@ -7,7 +7,7 @@
  */
 
 import React, {Component} from 'react';
-import {Platform, StyleSheet, Text, View,FlatList,Dimensions,TouchableOpacity,ToastAndroid} from 'react-native';
+import {Platform, StyleSheet, Text, View,FlatList,Dimensions,TouchableOpacity,ToastAndroid,Image} from 'react-native';
 
 let {height, width} = Dimensions.get('window');
 
@@ -29,6 +29,7 @@ export default class Home extends Component<Props> {
     return (
       <View style={styles.container}>
         <Text>{'Home页面'}</Text>
+        <Image source={require("assets/image/i_home_foc.png")}></Image>
       </View>
     )
   }

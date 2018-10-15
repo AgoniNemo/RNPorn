@@ -10,8 +10,8 @@ import MainTab from 'components/TabNavigator'
 const RouteConfig = {
     MainTab: {
         screen:MainTab,
-        headerMode:'screen',
-    },
+        headerMode: 'screen',
+    }
     // NewsDetail: {
     //     screen: NewsDetail,
     //     navigationOptions: ({navigation}) => ({header: null, gesturesEnable: true})
