@@ -10,18 +10,21 @@ import MainTab from 'components/TabNavigator'
 const RouteConfig = {
     MainTab: {
         screen:MainTab,
+        navigationOptions: ({navigation}) => ({
+            gesturesEnable: true, //是否允许右滑返回，在iOS上默认为true，在Android上默认为false
+            headerStyle: {
+                backgroundColor: '#fff',
+            },
+            headerTintColor: '#000',
+            headerTitleStyle: {
+                fontWeight: 'bold',
+            },
+        }),
         headerMode: 'screen',
+        mode: 'card',
     }
     // NewsDetail: {
     //     screen: NewsDetail,
-    //     navigationOptions: ({navigation}) => ({header: null, gesturesEnable: true})
-    // },
-    // VideoDetail: {
-    //     screen: VideoDetail,
-    //     navigationOptions: ({navigation}) => ({header:null, gesturesEnable:true})
-    // },
-    // NewsSearch: {
-    //     screen: NewsSearch,
     //     navigationOptions: ({navigation}) => ({header: null, gesturesEnable: true})
     // }
 }

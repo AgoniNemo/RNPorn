@@ -11,13 +11,18 @@ import {Platform, StyleSheet, Text, View,FlatList,Dimensions,TouchableOpacity,To
 
 let {height, width} = Dimensions.get('window');
 
+export default class Home extends Component {
 
-type Props = {};
-export default class Home extends Component<Props> {
-
-  static navigationOptions = {
-   title: 'Home页面',
+  static navigationOptions = ({ navigation }) => {
+    const params = navigation.state.params || {};
+    return {
+      headerTitle: 'Home',
+      headerStyle: {
+        backgroundColor: 'red',
+      }
+    };
   };
+
   constructor(props){
     super(props)
     this.state={

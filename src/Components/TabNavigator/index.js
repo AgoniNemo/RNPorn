@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {Platform, StyleSheet, Text, View, Image} from 'react-native';
-import { TabNavigator } from 'react-navigation'
+import { createBottomTabNavigator } from 'react-navigation'
 import Home from 'views/Home/index'
 import Mine from 'views/Mine/index'
 import TabBarItem from 'components/TabBarItem/index'
@@ -10,20 +10,14 @@ const MainTabUnSelectedIcon = require("assets/image/i_home.png");
 const MineTabUnSelectedIcon = require("assets/image/i_mine.png");
 const MineTabSelectedIcon = require("assets/image/i_mine_foc.png");
 
-export default MainTab = TabNavigator({
+export default MainTab = createBottomTabNavigator({
     Home: {
         screen: Home,
         navigationOptions:({navigation, screeProps}) => ({
             //这里设置StackNavigator属性和一般情况下Tabbar不同页面可能会不同的属性
-            //设置StackNavigator属性
-            // header:null,
-            headerTitle: '首页',
-            headerStyle: styles.navigator,
-            headerTitleStyle: styles.navigatorTitle,
-            gesturesEnabled:true,
-
+            
             //这里设置Tabbar不同页面可能会不同的属性
-            tabBarVisible: true,
+            tabBarVisible: true, //显示tabBar
             tabBarLabel:'首页',
             tabBarIcon:(({tintColor,focused}) => {
                 return(
@@ -43,14 +37,9 @@ export default MainTab = TabNavigator({
             //这里设置StackNavigator属性和一般情况下Tabbar不同页面可能会不同的属性
 
             //设置StackNavigator属性
-            header:null,
-            headerTitle: '我的',
-            headerStyle:styles.navigator,
-            headerTitleStyle:styles.navigatorTitle,
-            gesturesEnabled:true,
-
+            
             //这里设置Tabbar不同页面可能会不同的属性
-            tabBarVisible: true,
+            tabBarVisible: true, //显示tabBar
             tabBarLabel:'我的',
             tabBarIcon:(({tintColor,focused}) => {
                 return(

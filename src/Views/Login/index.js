@@ -8,7 +8,7 @@ type Props = {};
 export default class Login extends Component<Props> {
 
   static navigationOptions = {
-   title: 'Login页面',
+    headerTitle: 'Login页面',
   };
   constructor(props){
     super(props)

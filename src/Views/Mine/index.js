@@ -3,12 +3,10 @@ import {Platform, StyleSheet, Text, View,FlatList,Dimensions} from 'react-native
 
 let {height, width} = Dimensions.get('window');
 
-
-type Props = {};
-export default class Mine extends Component<Props> {
+export default class Mine extends Component {
 
   static navigationOptions = {
-    title: 'Mine页面',
+    headerTitle: 'Mine页面',
   };
   constructor(props){
     super(props)
