@@ -12,13 +12,7 @@ const RouteConfig = {
         screen:MainTab,
         navigationOptions: ({navigation}) => ({
             gesturesEnable: true, //是否允许右滑返回，在iOS上默认为true，在Android上默认为false
-            headerStyle: {
-                backgroundColor: '#fff',
-            },
-            headerTintColor: '#000',
-            headerTitleStyle: {
-                fontWeight: 'bold',
-            },
+            header: null,
         }),
         headerMode: 'screen',
         mode: 'card',

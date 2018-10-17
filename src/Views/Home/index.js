@@ -8,20 +8,11 @@
 
 import React, {Component} from 'react';
 import {Platform, StyleSheet, Text, View,FlatList,Dimensions,TouchableOpacity,ToastAndroid,Image} from 'react-native';
+import NavigationBar from 'components/NavigationBar';
 
 let {height, width} = Dimensions.get('window');
 
 export default class Home extends Component {
-
-  static navigationOptions = ({ navigation }) => {
-    const params = navigation.state.params || {};
-    return {
-      headerTitle: 'Home',
-      headerStyle: {
-        backgroundColor: 'red',
-      }
-    };
-  };
 
   constructor(props){
     super(props)
@@ -33,6 +24,7 @@ export default class Home extends Component {
   render() {
     return (
       <View style={styles.container}>
+        <NavigationBar title={'首界面'}/>
         <Text>{'Home页面'}</Text>
         <Image source={require("assets/image/i_home_foc.png")}></Image>
       </View>
@@ -43,7 +35,6 @@ export default class Home extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#fff',
   },

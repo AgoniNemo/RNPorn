@@ -4,7 +4,7 @@ import NavigationBar from 'components/NavigationBar';
 
 let {height, width} = Dimensions.get('window');
 
-export default class Mine extends Component {
+export default class Classification extends Component {
 
   constructor(props){
     super(props)
@@ -16,8 +16,8 @@ export default class Mine extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <NavigationBar title={'我的'}/>
-        <Text>{'Mine页面'}</Text>
+        <NavigationBar title={'分类'}/>
+        <Text>{'Classification页面'}</Text>
       </View>
     )
   }

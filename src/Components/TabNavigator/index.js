@@ -3,6 +3,7 @@ import {Platform, StyleSheet, Text, View, Image} from 'react-native';
 import { createBottomTabNavigator } from 'react-navigation'
 import Home from 'views/Home/index'
 import Mine from 'views/Mine/index'
+import Classification from 'views/Classification/index'
 import TabBarItem from 'components/TabBarItem/index'
 
 const MainTabSelectedIcon = require("assets/image/i_home_foc.png");
@@ -31,13 +32,35 @@ export default MainTab = createBottomTabNavigator({
             }),
         })
     },
+    Classification: {
+        screen: Classification,
+        navigationOptions:({navigation, screeProps}) => ({
+            //这里设置StackNavigator属性和一般情况下Tabbar不同页面可能会不同的属性
+
+            //设置StackNavigator属性
+
+            //这里设置Tabbar不同页面可能会不同的属性
+            tabBarVisible: true, //显示tabBar
+            tabBarLabel:'分类',
+            tabBarIcon:(({tintColor,focused}) => {
+                return(
+                    <TabBarItem
+                        focused={focused}
+                        normalImage={MineTabUnSelectedIcon}
+                        selectedImage={MineTabSelectedIcon}
+                        styles={styles.tabbarImage}
+                    />
+                )
+            }),
+        })
+    },
     Mine: {
         screen: Mine,
         navigationOptions:({navigation, screeProps}) => ({
             //这里设置StackNavigator属性和一般情况下Tabbar不同页面可能会不同的属性
 
             //设置StackNavigator属性
-            
+
             //这里设置Tabbar不同页面可能会不同的属性
             tabBarVisible: true, //显示tabBar
             tabBarLabel:'我的',
