@@ -21,7 +21,7 @@ export default class NavigationBar extends Component {
         return (
             <BoxShadow setting={shadowOpt}>
                 <View style={styles.container}>
-                    <Text>{this.props.title}</Text>
+                    <Text style={styles.title}>{this.props.title}</Text>
                 </View>
             </BoxShadow>
         )
@@ -34,11 +34,17 @@ const styles = StyleSheet.create({
       height: 44,
       flexDirection: 'row',
       justifyContent: 'center',
-      alignItems: 'center',
       backgroundColor: '#fff',
-      shadowOffset: {width: 0, height: 5},
-      shadowOpacity: 0.5,
-      shadowRadius: 5,
-      shadowColor: 'red',
+      ...Platform.select({
+        ios: {
+          marginTop: 20,
+          shadowOffset: {width: 0, height: 1},
+          shadowOpacity: 0.2,
+        }
+      })
+    },
+    title: {
+        height: 44,
+        lineHeight:44,
     }
 });

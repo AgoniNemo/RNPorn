@@ -25,7 +25,7 @@ export default class Home extends Component {
     return (
       <View style={styles.container}>
         <NavigationBar title={'首界面'}/>
-        <Text>{'Home页面'}</Text>
+        <Text style={styles.text}>{'Home页面'}</Text>
         <Image source={require("assets/image/i_home_foc.png")}></Image>
       </View>
     )
@@ -48,8 +48,10 @@ const styles = StyleSheet.create({
     justifyContent: 'center'
   },
   text: {
-    fontSize: 20,
-    fontWeight: 'bold',
-    textAlign: 'center',
+    ...Platform.select({
+      ios: {
+        marginTop: 20,
+      }
+    })
   }
 });
