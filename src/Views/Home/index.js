@@ -7,7 +7,7 @@
  */
 
 import React, {Component} from 'react';
-import {Platform, StyleSheet, Text, View,FlatList,Dimensions,TouchableOpacity,ToastAndroid,Image} from 'react-native';
+import {Platform, StyleSheet, Text, View,FlatList,Dimensions,TouchableOpacity,ToastAndroid} from 'react-native';
 import NavigationBar from 'components/NavigationBar';
 
 let {height, width} = Dimensions.get('window');
@@ -25,11 +25,42 @@ export default class Home extends Component {
     return (
       <View style={styles.container}>
         <NavigationBar title={'首界面'}/>
-        <Text style={styles.text}>{'Home页面'}</Text>
-        <Image source={require("assets/image/i_home_foc.png")}></Image>
+        <FlatList
+            horizontal={false}
+            data={this.state.data}
+            renderItem={({item,index}) => this.createCell(item,index)}
+            keyExtractor={(item, index) => index.toString()}>
+        </FlatList>
       </View>
     )
   }
+
+  componentDidMount() {
+    setTimeout(() => {
+      this.setState({
+        data: [
+          {vc:'Animations',text:'Animations界面',key:0},
+          {vc:'Animation',text:'Animation界面',key:1},
+          {vc:'Video',text:'Video界面',key:2}
+        ]
+      })
+    }, 200);
+
+  }
+
+  createCell(item,index) {
+    return (
+      <TouchableOpacity
+      activeOpacity = {0.5}
+      onPress={() => this.cellClick(item,index)}
+        >
+        <View style={styles.cell}>
+          <Text style={styles.text}>{`第${index}行`}</Text>
+        </View>
+      </TouchableOpacity>
+    );
+  }
+
 }
 
 const styles = StyleSheet.create({
@@ -47,11 +78,8 @@ const styles = StyleSheet.create({
     alignItems:'center',
     justifyContent: 'center'
   },
-  text: {
-    ...Platform.select({
-      ios: {
-        marginTop: 20,
-      }
-    })
+  image: {
+    height:100,
+    width: 100,
   }
 });

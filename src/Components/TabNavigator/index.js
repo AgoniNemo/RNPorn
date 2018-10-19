@@ -10,6 +10,8 @@ const MainTabSelectedIcon = require("assets/image/i_home_foc.png");
 const MainTabUnSelectedIcon = require("assets/image/i_home.png");
 const MineTabUnSelectedIcon = require("assets/image/i_mine.png");
 const MineTabSelectedIcon = require("assets/image/i_mine_foc.png");
+const VideoTabUnSelectedIcon = require("assets/image/i_video.png");
+const VideoTabSelectedIcon = require("assets/image/i_video_foc.png");
 
 export default MainTab = createBottomTabNavigator({
     Home: {
@@ -24,8 +26,8 @@ export default MainTab = createBottomTabNavigator({
                 return(
                     <TabBarItem
                         focused={focused}
-                        normalImage={MainTabUnSelectedIcon}
-                        selectedImage={MainTabSelectedIcon}
+                        normalImage={VideoTabUnSelectedIcon}
+                        selectedImage={VideoTabSelectedIcon}
                         styles={styles.tabbarImage}
                     />
                 )
@@ -46,8 +48,8 @@ export default MainTab = createBottomTabNavigator({
                 return(
                     <TabBarItem
                         focused={focused}
-                        normalImage={MineTabUnSelectedIcon}
-                        selectedImage={MineTabSelectedIcon}
+                        normalImage={MainTabUnSelectedIcon}
+                        selectedImage={MainTabSelectedIcon}
                         styles={styles.tabbarImage}
                     />
                 )

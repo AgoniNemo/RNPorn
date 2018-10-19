@@ -15,7 +15,14 @@ export default class NavigationBar extends Component {
             opacity:0.2,
             x:0,
             y:1,// 阴影height
-            style: { marginBottom: 5 }
+            style: {
+                marginBottom: 5,
+                ...Platform.select({
+                    ios: {
+                      marginTop: 20
+                    }
+                }),
+            }
         }
 
         return (
