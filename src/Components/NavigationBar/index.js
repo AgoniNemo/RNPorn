@@ -11,12 +11,12 @@ export default class NavigationBar extends Component {
             width:width,
             height:44,
             color:"#000",
-            border:2,
+            border:1,
             opacity:0.2,
             x:0,
             y:1,// 阴影height
             style: {
-                marginBottom: 5,
+                marginBottom: 3,
                 ...Platform.select({
                     ios: {
                       marginTop: 20
@@ -42,13 +42,6 @@ const styles = StyleSheet.create({
       flexDirection: 'row',
       justifyContent: 'center',
       backgroundColor: '#fff',
-      ...Platform.select({
-        ios: {
-          marginTop: 20,
-          shadowOffset: {width: 0, height: 1},
-          shadowOpacity: 0.2,
-        }
-      })
     },
     title: {
         height: 44,

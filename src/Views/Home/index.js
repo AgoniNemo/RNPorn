@@ -24,7 +24,7 @@ export default class Home extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <NavigationBar title={'首界面'}/>
+        <NavigationBar title={'首页'}/>
         <FlatList
             horizontal={false}
             data={this.state.data}
