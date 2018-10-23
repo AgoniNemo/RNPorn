@@ -61,6 +61,10 @@ export default class Home extends Component {
     );
   }
 
+  cellClick(item,index) {
+    this.props.navigation.navigate('Login');
+  }
+
 }
 
 const styles = StyleSheet.create({

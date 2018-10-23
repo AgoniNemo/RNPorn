@@ -1,4 +1,5 @@
 import MainTab from 'components/TabNavigator'
+import Login from 'views/Login/index'
 /*
     --- 路由配置 ---
 
@@ -16,11 +17,11 @@ const RouteConfig = {
         }),
         headerMode: 'screen',
         mode: 'card',
+    },
+    Login: {
+        screen: Login,
+        navigationOptions: ({navigation}) => ({header: null, gesturesEnable: true})
     }
-    // NewsDetail: {
-    //     screen: NewsDetail,
-    //     navigationOptions: ({navigation}) => ({header: null, gesturesEnable: true})
-    // }
 }
 
 export default RouteConfig;
