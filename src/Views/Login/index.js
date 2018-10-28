@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
-import {Platform, StyleSheet, Text, View,FlatList,Dimensions,TouchableOpacity,ToastAndroid} from 'react-native';
+import {Platform, StyleSheet, Text, View,ImageBackground,Dimensions,TextInput} from 'react-native';
+import {Button, InputItem, List,Toast} from 'antd-mobile-rn';
 
 let {height, width} = Dimensions.get('window');
 
@@ -13,18 +14,32 @@ export default class Login extends Component<Props> {
   constructor(props){
     super(props)
     this.state={
-      data:[]
+      userName:null,
+      password:null
     }
   }
 
   render() {
     return (
-      <View style={styles.container}>
-       <Text>{'Login页面'}</Text>
-      </View>
+      <ImageBackground style={styles.container}
+       source={require('assets/image/back.png')} resizeMode='cover'>
+        <View style={styles.inputContaner}>
+          <View style={styles.userInput}>
+            <TextInput style={{color:'white'}} placeholder={'用户名'} onChange={(value)=>{this.state.userName = value;}} placeholderTextColor={'white'}/>
+          </View>
+          <View style={styles.passworInput}>
+            <TextInput style={{color:'white'}}  placeholder={'密码'} onChange={(value)=>{this.state.password = value;}} placeholderTextColor={'white'}/>
+          </View>
+          <Button type='primary' size={'large'} style={styles.loginBtn} onClick={() => this.loginClick()}>登陆</Button>
+        </View>
+      </ImageBackground>
     )
   }
 
+
+  loginClick() {
+    Toast.success('这是提示',1)
+  }
 }
 
 const styles = StyleSheet.create({
@@ -33,5 +48,23 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#fff',
+  },
+  inputContaner: {
+    width:(height-20)/2,
+  },
+  userInput: {
+    marginBottom:10,
+    padding: 0,
+    borderBottomWidth:1,
+    borderBottomColor: 'white',
+    
+  },
+  passworInput: {
+    padding: 0,
+    borderBottomColor: 'white',
+    borderBottomWidth:1
+  },
+  loginBtn: {
+    marginTop: 10
   }
 });
