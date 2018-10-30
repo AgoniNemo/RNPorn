@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Platform, StyleSheet, Text, View,ImageBackground,Dimensions,TextInput} from 'react-native';
+import {Platform, StyleSheet, Text, View,ImageBackground,Dimensions,TextInput,Image} from 'react-native';
 import {Button, InputItem, List,Toast} from 'antd-mobile-rn';
 
 let {height, width} = Dimensions.get('window');
@@ -25,12 +25,14 @@ export default class Login extends Component<Props> {
        source={require('assets/image/back.png')} resizeMode='cover'>
         <View style={styles.inputContaner}>
           <View style={styles.userInput}>
-            <TextInput style={{color:'white'}} placeholder={'用户名'} onChange={(value)=>{this.state.userName = value;}} placeholderTextColor={'white'}/>
+            <Image source={require('assets/image/user.png')} style={styles.image}/>
+            <TextInput style={styles.textInput} placeholder={'用户名'} onChange={(value)=>{this.state.userName = value;}} placeholderTextColor={'white'}/>
           </View>
           <View style={styles.passworInput}>
-            <TextInput style={{color:'white'}}  placeholder={'密码'} onChange={(value)=>{this.state.password = value;}} placeholderTextColor={'white'}/>
+            <Image source={require('assets/image/password.png')} style={styles.image}/>
+            <TextInput style={styles.textInput}  placeholder={'密码'} onChange={(value)=>{this.state.password = value;}} placeholderTextColor={'white'}/>
           </View>
-          <Button type='primary' size={'large'} style={styles.loginBtn} onClick={() => this.loginClick()}>登陆</Button>
+          <Button type='primary' size={'large'} style={styles.loginBtn} activeStyle={styles.btnSelect} onClick={() => this.loginClick()}>登陆</Button>
         </View>
       </ImageBackground>
     )
@@ -52,19 +54,40 @@ const styles = StyleSheet.create({
   inputContaner: {
     width:(height-20)/2,
   },
+  image: {
+    width:41/2,
+    height:29/2,
+    top:15,
+    marginRight:10
+  },
   userInput: {
     marginBottom:10,
     padding: 0,
     borderBottomWidth:1,
     borderBottomColor: 'white',
+    flexDirection: 'row',
     
   },
   passworInput: {
     padding: 0,
     borderBottomColor: 'white',
-    borderBottomWidth:1
+    borderBottomWidth:1,
+    flexDirection: 'row',
+  },
+  textInput: {
+    color:'white',
+    fontSize:17,
+    flex:1
   },
   loginBtn: {
-    marginTop: 10
+    marginTop: 20,
+    backgroundColor:'rgb(201,39,143)',
+    borderColor:'rgb(201,39,143)',
+    height:44,
+    opacity:0.8,
+  },
+  btnSelect: {
+    backgroundColor:'rgb(201,39,143)',
+    borderColor:'rgb(201,39,143)'
   }
 });
