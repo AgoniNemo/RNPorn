@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {Platform, StyleSheet, Text, View,ImageBackground,Dimensions,TextInput,Image} from 'react-native';
 import {Button, InputItem, List,Toast} from 'antd-mobile-rn';
+import { requestLogin } from 'src/Api';
 
 let {height, width} = Dimensions.get('window');
 
@@ -41,6 +42,9 @@ export default class Login extends Component<Props> {
 
   loginClick() {
     Toast.success('这是提示',1)
+    requestLogin({user:'Nemo',password:'123456'}).then(res => {
+      console.log(res);
+    })
   }
 }
 
