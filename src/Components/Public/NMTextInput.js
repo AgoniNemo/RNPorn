@@ -1,16 +1,23 @@
 import React, {Component} from 'react'
 import {Platform, StyleSheet, View,TextInput,Image} from 'react-native'
 
-export default class NMTextnput extends Component {
+export default class NMTextInput extends Component {
 
     render() {
       return (
         <View style={styles.container}>
-            <Image source={require('assets/image/user.png')} style={styles.image}/>
-            <TextInput style={styles.textInput}  placeholder={this.props.placeholder} placeholderTextColor={'white'}/>
+            <Image source={this.props.source } style={styles.image}/>
+            <TextInput style={styles.textInput}  placeholder={this.props.placeholder} placeholderTextColor={'white'} onChangeText={(value)=> this.inputAction(value)} secureTextEntry={this.props.secureTextEntry}/>
         </View>
       )
     }
+
+    inputAction(value) {
+        if (this.props.callBackFunc) {
+            this.props.callBackFunc(value)
+        }
+    }
+
   }
   
   const styles = StyleSheet.create({

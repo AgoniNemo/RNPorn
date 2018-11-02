@@ -1,12 +1,12 @@
 
 import color from './Color';
 import Text from './NMText';
-import Textnput from './NMTextnput';
+import TextInput from './NMTextInput';
 import View from './NMView';
 
-export default {
+export {
     color,
     Text,
-    Textnput,
+    TextInput,
     View,
 }
