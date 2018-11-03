@@ -7,8 +7,10 @@
  */
 
 import React, {Component} from 'react';
-import {Platform, StyleSheet, Text, View,FlatList,Dimensions,TouchableOpacity,ToastAndroid} from 'react-native';
+import {Platform, StyleSheet, Text, View,FlatList,Dimensions,TouchableOpacity} from 'react-native';
 import NavigationBar from 'components/NavigationBar';
+import {Button,Toast} from 'antd-mobile-rn';
+import HomeCell from './HomeCell'
 
 let {height, width} = Dimensions.get('window');
 
@@ -36,6 +38,7 @@ export default class Home extends Component {
   }
 
   componentDidMount() {
+    Toast.loading('加载中...',0,(()=>{}),true)
     setTimeout(() => {
       this.setState({
         data: [
@@ -44,25 +47,20 @@ export default class Home extends Component {
           {vc:'Video',text:'Video界面',key:2}
         ]
       })
+      Toast.hide()
     }, 200);
-
+    
   }
 
   createCell(item,index) {
     return (
-      <TouchableOpacity
-      activeOpacity = {0.5}
-      onPress={() => this.cellClick(item,index)}
-        >
-        <View style={styles.cell}>
-          <Text style={styles.text}>{`第${index}行`}</Text>
-        </View>
-      </TouchableOpacity>
+      <HomeCell cellClick={(item) => this.cellClick(item)} item={item}/>
     );
   }
 
-  cellClick(item,index) {
-    this.props.navigation.navigate('Login');
+  cellClick(item) {
+    Toast.success(item.text,3)
+    // this.props.navigation.navigate('Login');
   }
 
 }
@@ -72,15 +70,6 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     backgroundColor: '#fff',
-  },
-  cell: {
-    width: width,
-    height: 44,
-    borderBottomWidth: 1,
-    borderStyle: 'solid',
-    borderBottomColor: '#eee',
-    alignItems:'center',
-    justifyContent: 'center'
   },
   image: {
     height:100,

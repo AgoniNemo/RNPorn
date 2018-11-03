@@ -1,14 +1,10 @@
 import React, {Component} from 'react';
 import {Platform, StyleSheet, Text, View,ImageBackground,Dimensions,Image} from 'react-native';
-import {Button,Toast,ActivityIndicator} from 'antd-mobile-rn';
+import {Button,Toast} from 'antd-mobile-rn';
 import { requestLogin } from 'src/Api';
-import { TextInput } from 'components/Public';
+import { TextInput,color,SCREEN } from 'components/Public';
 
-let {height, width} = Dimensions.get('window');
-
-
-type Props = {};
-export default class Login extends Component<Props> {
+export default class Login extends Component{
 
   static navigationOptions = {
     headerTitle: 'Login页面',
@@ -64,17 +60,17 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
   },
   inputContaner: {
-    width:(height-20)/2,
+    width:SCREEN.width-2*30,
   },
   loginBtn: {
     marginTop: 20,
-    backgroundColor:'rgb(201,39,143)',
-    borderColor:'rgb(201,39,143)',
+    backgroundColor:color.theme,
+    borderColor:color.theme,
     height:44,
     opacity:0.8,
   },
   btnSelect: {
-    backgroundColor:'rgb(201,39,143)',
-    borderColor:'rgb(201,39,143)'
+    backgroundColor:color.theme,
+    borderColor:color.theme
   }
 });

@@ -31,7 +31,7 @@ export default class NMTextInput extends Component {
     image: {
         width:41/2,
         height:29/2,
-        top:15,
+        top:18,
         marginRight:10
     },
     textInput: {
