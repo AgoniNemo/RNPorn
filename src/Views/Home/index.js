@@ -48,7 +48,7 @@ export default class Home extends Component {
         ]
       })
       Toast.hide()
-    }, 200);
+    }, 800);
     
   }
 
@@ -59,7 +59,7 @@ export default class Home extends Component {
   }
 
   cellClick(item) {
-    Toast.success(item.text,3)
+    Toast.success(item.text,1)
     // this.props.navigation.navigate('Login');
   }
 

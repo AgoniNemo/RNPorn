@@ -9,13 +9,13 @@ export default class HomeCell extends Component {
     return (
         <TouchableOpacity
         activeOpacity = {0.5}
-        onPress={() => this.click(this.props.item)}
-          >
+        onPress={() => this.click(this.props.item)}>
           <View style={styles.cell}>
             <View style={styles.header}>
                 <Image roundAsCircle={true} style={styles.imageStyle} source={require('assets/image/header.jpg')}/>
-                <View style={styles.timeContainer}>
-                    <Text style={styles.time}>{`这是一个时间`}</Text>
+                <View style={styles.bottomContainer}>
+                    <Text style={styles.textStyle}>{`这是一个时间`}</Text>
+                    <Text style={[styles.textStyle,{marginLeft:5}]}>{`这是一个次数`}</Text>
                 </View>
                 <View style={styles.ratingContainer}>
                     <Text style={styles.rating}>{`这是一个比分`}</Text>
@@ -44,6 +44,7 @@ const styles = StyleSheet.create({
       justifyContent: 'center'
     },
     header: {
+        position:'relative',
         marginTop:10,
         marginLeft:20,
     },
@@ -52,13 +53,16 @@ const styles = StyleSheet.create({
         height: (SCREEN.width-2*20)/16*9,
         borderRadius:3,
     },
-    timeContainer: {
+    bottomContainer: {
         position:'absolute',
+        left: 5,
+        bottom:5,
+        flexDirection:'row',
+    },
+    viewsContainer: {
         backgroundColor:'rgba(0,0,0,0.7)',
         padding:2,
         borderRadius:1,
-        left: 5,
-        bottom:5,
     },
     ratingContainer: {
         position:'absolute',
@@ -68,7 +72,10 @@ const styles = StyleSheet.create({
         bottom:5,
         right:5,
     },
-    time: {
+    textStyle: {
+        backgroundColor:'rgba(0,0,0,0.7)',
+        padding:3,
+        borderRadius:1,
         fontSize:12,
         color:'white',
     },
