@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {Platform, StyleSheet, Text, View,ImageBackground,Dimensions,Image} from 'react-native';
 import {Button,Toast} from 'antd-mobile-rn';
 import { requestLogin } from 'src/Api';
-import { TextInput,color,SCREEN } from 'components/Public';
+import { TextInput,Color,SCREEN } from 'components/Public';
 
 export default class Login extends Component{
 
@@ -64,13 +64,13 @@ const styles = StyleSheet.create({
   },
   loginBtn: {
     marginTop: 20,
-    backgroundColor:color.theme,
-    borderColor:color.theme,
+    backgroundColor:Color.theme,
+    borderColor:Color.theme,
     height:44,
     opacity:0.8,
   },
   btnSelect: {
-    backgroundColor:color.theme,
-    borderColor:color.theme
+    backgroundColor:Color.theme,
+    borderColor:Color.theme
   }
 });

@@ -70,9 +70,5 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     backgroundColor: '#fff',
-  },
-  image: {
-    height:100,
-    width: 100,
   }
 });

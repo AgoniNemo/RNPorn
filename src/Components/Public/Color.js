@@ -4,4 +4,5 @@ export default {
     paper: '#f3f3f3',
     gray: '#979797',
     theme: 'rgb(201,39,143)',
+    translucent:'rgba(0,0,0,0.7)',
 }
