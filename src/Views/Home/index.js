@@ -12,7 +12,6 @@ import NavigationBar from 'components/NavigationBar';
 import {Button,Toast} from 'antd-mobile-rn';
 import HomeCell from './HomeCell'
 
-let {height, width} = Dimensions.get('window');
 
 export default class Home extends Component {
 

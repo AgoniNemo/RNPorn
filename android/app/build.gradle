@@ -142,10 +142,18 @@ android {
             }
         }
     }
-    buildToolsVersion '27.0.3'
+    buildToolsVersion '23.0.3'
+
+    defaultConfig {
+        // Add these lines below the existing config
+        renderscriptTargetApi 23
+        renderscriptSupportModeEnabled true
+    }
+
 }
 
 dependencies {
+    compile project(':react-native-blur')
     compile project(':react-native-svg')
     compile fileTree(dir: "libs", include: ["*.jar"])
     compile "com.android.support:appcompat-v7:${rootProject.ext.supportLibVersion}"
