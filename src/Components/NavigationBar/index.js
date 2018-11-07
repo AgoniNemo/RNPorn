@@ -1,14 +1,13 @@
 import React, {Component} from 'react';
-import {Platform, StyleSheet, Text, View,Image,Dimensions} from 'react-native';
+import {Platform, StyleSheet, Text, View,Image,Dimensions,TouchableOpacity} from 'react-native';
 import {BoxShadow} from 'react-native-shadow'
-
-let {height, width} = Dimensions.get('window');
+import { SCREEN } from 'components/Public';
 
 export default class NavigationBar extends Component {
 
     render() {
         const shadowOpt = {
-            width:width,
+            width:SCREEN.width,
             height:44,
             color:"#000",
             border:1,
@@ -28,16 +27,29 @@ export default class NavigationBar extends Component {
         return (
             <BoxShadow setting={shadowOpt}>
                 <View style={styles.container}>
+                    {this.props.rightIcon  ? 
+                        <TouchableOpacity
+                        style={styles.imageContainer}
+                        activeOpacity = {0.5}
+                        onPress={() => this.click()}>
+                            <Image style={{width:23,height:23}} source={this.props.rightIcon}/>
+                    </TouchableOpacity> : null}
                     <Text style={styles.title}>{this.props.title}</Text>
                 </View>
             </BoxShadow>
         )
     }
+
+    click() {
+        if (this.props.rightClick) {
+            this.props.rightClick()
+        }
+    }
 }
 
 const styles = StyleSheet.create({
     container: {
-      width: width,
+      width: SCREEN.width,
       height: 44,
       flexDirection: 'row',
       justifyContent: 'center',
@@ -46,5 +58,10 @@ const styles = StyleSheet.create({
     title: {
         height: 44,
         lineHeight:44,
+    },
+    imageContainer: {
+        position:'absolute',
+        right:10,
+        top:10.5,
     }
 });

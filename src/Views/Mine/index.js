@@ -17,7 +17,9 @@ export default class Mine extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <NavigationBar title={'我的'}/>
+        <NavigationBar title={'我的'} 
+          rightIcon={require('assets/image/i_menu.png')}
+          rightClick={this.settingClick.bind(this)}/>
         <FlatList
             ListHeaderComponent={({item,index}) => this.createHearder(item,index)}
             horizontal={false}
@@ -54,6 +56,10 @@ export default class Mine extends Component {
     return(
       <MineHeader />
     )
+  }
+
+  settingClick() {
+    this.props.navigation.navigate('Setting');
   }
 
 }

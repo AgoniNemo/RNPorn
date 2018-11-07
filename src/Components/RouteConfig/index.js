@@ -1,5 +1,6 @@
 import MainTab from 'components/TabNavigator'
 import Login from 'views/Login/index'
+import Setting from 'views/Setting/index'
 /*
     --- 路由配置 ---
 
@@ -21,7 +22,11 @@ const RouteConfig = {
     Login: {
         screen: Login,
         navigationOptions: ({navigation}) => ({header: null, gesturesEnable: true})
-    }
+    },
+    Setting: {
+        screen: Setting,
+        navigationOptions: ({navigation}) => ({title: '设置',gesturesEnable: true})
+    },
 }
 
 export default RouteConfig;
