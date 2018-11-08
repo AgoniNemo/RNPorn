@@ -5,4 +5,6 @@ export default {
     gray: '#979797',
     theme: 'rgb(201,39,143)',
     translucent:'rgba(0,0,0,0.7)',
+    sectionBackgroundColor:'#efeff4',
+    themeColor:'#ffb4db',
 }
