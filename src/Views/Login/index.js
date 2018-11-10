@@ -30,10 +30,6 @@ export default class Login extends Component{
     )
   }
   
-  text(value) {
-    console.log('====',value);
-    
-  }
   loginClick() {
     Toast.loading('加载中...',0,(()=>{}),true)
     this.loginAction()

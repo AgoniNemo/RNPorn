@@ -4,6 +4,7 @@ import NavigationBar from 'components/NavigationBar';
 import {Button,Toast} from 'antd-mobile-rn';
 import ClassificationCell from './ClassificationCell'
 import { SCREEN } from 'components/Public';
+import { categories } from 'utils/staticData';
 
 export default class Classification extends Component {
 
@@ -31,19 +32,10 @@ export default class Classification extends Component {
   }
 
   componentDidMount() {
-    Toast.loading('加载中...',0,(()=>{}),true)
-    let list = []
-    for (let index = 0; index < 10; index++) {
-      let obj = {vc:'Animations',text:'Animations界面',key:index}
-      list.push(obj)
-    }
-    setTimeout(() => {
-      this.setState({
-        data: list
-      })
-      Toast.hide()
-    }, 800);
-    
+    const list = categories;
+    this.setState({
+      data: list
+    })
   }
 
   createCell(item,index) {
@@ -53,7 +45,7 @@ export default class Classification extends Component {
   }
 
   cellClick(item) {
-    Toast.success(item.text,1)
+    Toast.success(item.title,1)
     // this.props.navigation.navigate('Login');
   }
 
