@@ -3,28 +3,29 @@ import {Platform, StyleSheet, Text, View,ImageBackground,Dimensions,Image} from 
 import {Button,Toast} from 'antd-mobile-rn';
 import { requestLogin } from 'src/Api';
 import { TextInput,Color,SCREEN } from 'components/Public';
+import DeviceStorage from 'lib/DeviceStorage';
 
 export default class Login extends Component{
 
-  static navigationOptions = {
-    headerTitle: 'Login页面',
-  };
   constructor(props){
     super(props)
     this.state={
       userName:null,
       password:null
     }
+    
   }
 
   render() {
+    console.log('render',this.props);
+    
     return (
       <ImageBackground style={styles.container}
        source={require('assets/image/back.png')} resizeMode='cover'>
         <View style={styles.inputContaner}>
           <TextInput source={require('assets/image/user.png')} placeholder={'用户名'} callBackFunc={(value)=> this.setState({userName:value})}/>
           <TextInput source={require('assets/image/password.png')} placeholder={'密码'} callBackFunc={(value)=> this.setState({password:value})} secureTextEntry={true}/>
-          <Button type='primary' size={'large'} style={styles.loginBtn} activeStyle={styles.btnSelect} onClick={() => this.loginClick()}>登陆</Button>
+          <Button type='primary' size={'large'} style={styles.loginBtn} activeStyle={styles.btnSelect} onClick={this.loginClick.bind(this)}>登陆</Button>
         </View>
       </ImageBackground>
     )
@@ -32,7 +33,9 @@ export default class Login extends Component{
   
   loginClick() {
     Toast.loading('加载中...',0,(()=>{}),true)
-    this.loginAction()
+    console.log(this.props);
+    this.props.navigation.navigate('MainTab');
+    // this.loginAction()
   }
 
   loginAction() {
@@ -41,6 +44,13 @@ export default class Login extends Component{
       password:this.state.password
     }
     console.log(param);
+    // let user = {
+    //    token:'34245354',
+    //    name:'dffdsafas',
+    // }
+    // DeviceStorage.save("user",user);
+    console.log(this.props);
+    
     // requestLogin(param).then(res => {
     //   console.log(res);
     //   Toast.hide()

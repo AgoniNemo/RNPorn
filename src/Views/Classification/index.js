@@ -47,6 +47,7 @@ export default class Classification extends Component {
   cellClick(item) {
     Toast.success(item.title,1)
     // this.props.navigation.navigate('Login');
+    this.props.navigation.navigate('Setting');
   }
 
 

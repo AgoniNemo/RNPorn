@@ -11,7 +11,7 @@ import {Platform, StyleSheet, Text, View,FlatList,Dimensions,TouchableOpacity} f
 import NavigationBar from 'components/NavigationBar';
 import {Button,Toast} from 'antd-mobile-rn';
 import HomeCell from './HomeCell'
-
+import DeviceStorage from 'lib/DeviceStorage';
 
 export default class Home extends Component {
 
@@ -37,6 +37,17 @@ export default class Home extends Component {
   }
 
   componentDidMount() {
+    
+    DeviceStorage.get('user').then((user) => {
+      if (user == null || user == '') {
+        
+      } else {
+        console.log(user);
+        this.setState({
+          user: user,
+        });
+      }
+    })
     Toast.loading('加载中...',0,(()=>{}),true)
     setTimeout(() => {
       this.setState({

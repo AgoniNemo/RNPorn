@@ -1,6 +1,7 @@
-import MainTab from 'components/TabNavigator'
-import Login from 'views/Login/index'
-import Setting from 'views/Setting/index'
+import MainTab from 'components/TabNavigator';
+import Login from 'views/Login/index';
+import Setting from 'views/Setting/index';
+
 /*
     --- 路由配置 ---
 

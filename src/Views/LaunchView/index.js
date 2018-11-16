@@ -12,6 +12,7 @@ export default class LaunchView extends Component {
   }
 
   render() {
+    console.log('---',Navigator.router);
     return (
       this.state.isLoading ?
       <Login /> : <Navigator />

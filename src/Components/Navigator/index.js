@@ -1,5 +1,3 @@
-import Home from 'views/Home/index'
-import Login from 'views/Login/index'
 import { createStackNavigator } from 'react-navigation';
 
 import RouteConfig from 'src/Components/RouteConfig/index'
