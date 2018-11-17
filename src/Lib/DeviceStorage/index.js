@@ -3,8 +3,8 @@ import {
 } from 'react-native';
 
 export default class DeviceStorage {
-    static get(key) {
-        return AsyncStorage.getItem(key).then((value) => {
+    static async get(key) {
+        return await AsyncStorage.getItem(key).then((value) => {
             const jsonValue = JSON.parse(value);
             return jsonValue;
         });

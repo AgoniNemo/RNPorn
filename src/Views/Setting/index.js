@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 import {Platform, StyleSheet, Text, View,SectionList,TouchableOpacity} from 'react-native';
 import {Toast} from 'antd-mobile-rn';
 import { SCREEN , Color} from 'components/Public';
-import Item from 'antd-mobile-rn/lib/list/ListItem.native';
 
 export default class Setting extends Component {
 

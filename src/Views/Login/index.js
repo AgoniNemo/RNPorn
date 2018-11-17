@@ -3,7 +3,7 @@ import {Platform, StyleSheet, Text, View,ImageBackground,Dimensions,Image} from 
 import {Button,Toast} from 'antd-mobile-rn';
 import { requestLogin } from 'src/Api';
 import { TextInput,Color,SCREEN } from 'components/Public';
-import DeviceStorage from 'lib/DeviceStorage';
+import UserManage from 'lib/UserManage';
 
 export default class Login extends Component{
 
@@ -15,10 +15,8 @@ export default class Login extends Component{
     }
     
   }
-
-  render() {
-    console.log('render',this.props);
-    
+  
+  render() {    
     return (
       <ImageBackground style={styles.container}
        source={require('assets/image/back.png')} resizeMode='cover'>
@@ -33,9 +31,7 @@ export default class Login extends Component{
   
   loginClick() {
     Toast.loading('加载中...',0,(()=>{}),true)
-    console.log(this.props);
-    this.props.navigation.navigate('MainTab');
-    // this.loginAction()
+    this.loginAction()
   }
 
   loginAction() {
@@ -44,13 +40,13 @@ export default class Login extends Component{
       password:this.state.password
     }
     console.log(param);
-    // let user = {
-    //    token:'34245354',
-    //    name:'dffdsafas',
-    // }
-    // DeviceStorage.save("user",user);
+    let user = {
+       token:'34245354',
+       name:'dffdsafas',
+    }
+    UserManage.save(user);
     console.log(this.props);
-    
+    this.props.navigation.navigate('MainTab');
     // requestLogin(param).then(res => {
     //   console.log(res);
     //   Toast.hide()

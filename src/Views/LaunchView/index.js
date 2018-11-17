@@ -1,22 +1,30 @@
 import React, {Component} from 'react';
-import Navigator from 'src/Components/Navigator/index';
-import Login from 'views/Login/index';
+import configAppNavigator from 'src/Components/Navigator/index';
+import UserManage from 'lib/UserManage';
 
-export default class LaunchView extends Component {
+class LaunchView extends Component {
 
   constructor(props){
     super(props)
     this.state={
-      isLoading:true
+      isLogin: false,
     }
   }
 
-  render() {
-    console.log('---',Navigator.router);
-    return (
-      this.state.isLoading ?
-      <Login /> : <Navigator />
-    )
+  componentWillMount() {
+    const than = this;
+    let result = UserManage.get();
+    console.log('result--',result);
   }
 
+  render() {
+    const { isLogin } = this.state;
+    const AppNavigator = configAppNavigator(isLogin);
+    return (
+        <AppNavigator />
+    );
+  }
+  
 }
+
+export default LaunchView;
