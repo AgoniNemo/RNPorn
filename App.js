@@ -7,13 +7,19 @@
  */
 
 import React, {Component} from 'react';
-import LaunchView from 'views/LaunchView/index';
+import Root from 'views/Root/index';
+import configureStore from 'reduxs/store/store';
+import { Provider } from 'react-redux';
+
+const store = configureStore()
 
 type Props = {};
 export default class App extends Component<Props> {
   render() {
     return (
-      <LaunchView/>
+      <Provider store={store}>
+        <Root />
+      </Provider>
     )
   }
 }

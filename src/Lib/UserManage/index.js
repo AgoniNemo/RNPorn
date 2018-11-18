@@ -6,7 +6,6 @@ export default class UserManage extends Component{
     static get = async() => {
         try {
             let user = await DeviceStorage.get('user');
-            console.log("user data" , user);
             return user
         } catch (error) {
             console.log("Error get data" + error);
