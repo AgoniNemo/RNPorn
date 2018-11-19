@@ -7,7 +7,7 @@ export default class NMTextInput extends Component {
       return (
         <View style={styles.container}>
             <Image source={this.props.source } style={styles.image}/>
-            <TextInput style={styles.textInput}  placeholder={this.props.placeholder} placeholderTextColor={'white'} onChangeText={(value)=> this.inputAction(value)} secureTextEntry={this.props.secureTextEntry}/>
+            <TextInput style={styles.textInput}  placeholder={this.props.placeholder}  defaultValue={this.props.defaultValue} placeholderTextColor={'white'} onChangeText={(value)=> this.inputAction(value)} secureTextEntry={this.props.secureTextEntry}/>
         </View>
       )
     }

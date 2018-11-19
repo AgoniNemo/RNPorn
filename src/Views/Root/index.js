@@ -7,6 +7,7 @@ import UserManage from 'lib/UserManage';
 class Root extends Component {
 
   componentWillMount() {
+    
     UserManage.get().then(usr => {
         this.props.changeUser(usr)
     });
@@ -15,11 +16,10 @@ class Root extends Component {
 
   render() {
     return (
-       <LaunchView {...this.props}/>
+       <LaunchView />
     );
-  } 
+  }
 }
-
 const mapStateToProps = (state) => {
   return {
       user: state.user,
@@ -32,4 +32,4 @@ const mapDispatchToProps = (dispatch) => {
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Root);
+export default connect(null, mapDispatchToProps)(Root);

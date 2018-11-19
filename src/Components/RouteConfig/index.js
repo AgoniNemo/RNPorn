@@ -11,6 +11,10 @@ import Setting from 'views/Setting/index';
 
 */
 const RouteConfig = {
+    Login: {
+        screen: Login,
+        navigationOptions: ({navigation}) => ({header: null, gesturesEnable: true})
+    },
     MainTab: {
         screen:MainTab,
         navigationOptions: ({navigation}) => ({
@@ -19,10 +23,6 @@ const RouteConfig = {
         }),
         headerMode: 'screen',
         mode: 'card',
-    },
-    Login: {
-        screen: Login,
-        navigationOptions: ({navigation}) => ({header: null, gesturesEnable: true})
     },
     Setting: {
         screen: Setting,

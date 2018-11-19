@@ -27,3 +27,20 @@ export const requestLogin = data => {
         })
         .then(res => res.data)
 }
+
+/**
+ * 首页列表
+ *
+ * @param      {<type>}  data    The data
+ * @return     {<type>}  { description_of_the_return_value }
+ */
+export const requestVideoList = data => {
+    return request({
+            url: `video/latestVideo`,
+            method: 'post',
+            data: qs.stringify({
+                ...data
+            })
+        })
+        .then(res => res.data)
+}

@@ -6,22 +6,23 @@ import { SCREEN } from 'components/Public';
 export default class HomeCell extends Component {
 
   render() {
+    const item =  this.props.item
     return (
         <TouchableOpacity
         activeOpacity = {0.5}
-        onPress={() => this.click(this.props.item)}>
+        onPress={() => this.click(item)}>
           <View style={styles.cell}>
             <View style={styles.header}>
-                <Image roundAsCircle={true} style={styles.imageStyle} source={require('assets/image/header.jpg')}/>
+                <Image roundAsCircle={true} style={styles.imageStyle} source={{uri:item.icon}}/>
                 <View style={styles.bottomContainer}>
-                    <Text style={styles.textStyle}>{`这是一个时间`}</Text>
-                    <Text style={[styles.textStyle,{marginLeft:5}]}>{`这是一个次数`}</Text>
+                    <Text style={styles.textStyle}>{item.duration}</Text>
+                    <Text style={[styles.textStyle,{marginLeft:5}]}>{`观看次数:${item.views}`}</Text>
                 </View>
                 <View style={styles.ratingContainer}>
-                    <Text style={styles.rating}>{`这是一个比分`}</Text>
+                    <Text style={styles.rating}>{`${item.rating}%`}</Text>
                 </View>
             </View>
-            <Text style={styles.title}>{`这是一个标题`}</Text>
+            <Text style={styles.title}>{item.title}</Text>
           </View>
         </TouchableOpacity>
       );
@@ -84,7 +85,7 @@ const styles = StyleSheet.create({
         color:'white',
     },
     title: {
-        color:'red',
+        color:'black',
         marginLeft:20,
         marginBottom:10,
         paddingLeft:5,
