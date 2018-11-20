@@ -1,18 +1,18 @@
 import { APP_STATUS_ACTION } from 'reduxs/action';
 
 const appStatusReducer = (state = {status:false}, action) => {
-    const newState = state;
+    const newState = state.status;
     const status = action.status;
     
     switch (action.type) {
         case APP_STATUS_ACTION:
             return {
-                ...state,
-                status: status
+                ...newState,
+                ...status
             }
         default:
             return {
-                ...state
+                ...newState
             }
     }
 }

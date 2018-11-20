@@ -11,10 +11,7 @@ class Login extends Component{
 
   constructor(props){
     super(props)
-    this.state={
-      user:'',
-      password: '',
-    }
+
   }
 
   render() {
@@ -40,8 +37,6 @@ class Login extends Component{
   }
   
   loginClick() {
-    console.log(this.props);
-    
     if (this.props.userModel.user == undefined || this.props.userModel.user == '') {
       Toast.show('账号不能为空',1)
       return

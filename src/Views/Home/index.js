@@ -32,8 +32,6 @@ export default class Home extends Component {
   }
 
   render() {
-    console.log(this.props);
-    
     return (
       <View style={styles.container}>
         <NavigationBar title={'首页'}/>
@@ -51,11 +49,9 @@ export default class Home extends Component {
 
   // 上拉
   refreshAction() {
-    console.log('this.state.page',this.state.page);
     let page = this.state.page;
     page += 1
     this.setState({page:page})
-    console.log('page',page);
     
     this.fetchDataList()
   }
@@ -72,10 +68,8 @@ export default class Home extends Component {
     if (!param) {
         return
     }
-    console.log('param',param);
     Toast.loading('加载中...',0,(()=>{}),true)
     requestVideoList(param).then((res) => {
-      console.log('res',res);
       if (res.code == '0') {
         this.setState({data:res.data.list})
       }else{

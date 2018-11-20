@@ -4,28 +4,29 @@ import NavigationBar from 'components/NavigationBar';
 import {Toast} from 'antd-mobile-rn';
 import MineCell from './MineCell';
 import MineHeader from './MineHeader';
-import { connect } from 'react-redux';
-import { USER_ACTION } from 'reduxs/action';
 
-class Mine extends Component {
+export default class Mine extends Component {
 
   constructor(props){
     super(props)
     this.state={
-      data:[]
+      data:[
+        {text:'我的收藏',key:0},
+        {text:'观看历史',key:1},
+        {text:'个人信息',key:2}
+      ]
     }
   }
 
   render() {
-    const { userModel } = this.props;
-    
+    const { user } = this.props.navigation.state.params;
     return (
       <View style={styles.container}>
         <NavigationBar title={'我的'} 
           rightIcon={require('assets/image/i_menu.png')}
           rightClick={this.settingClick.bind(this)}/>
         <FlatList
-            ListHeaderComponent={({item,index}) => this.createHearder(item,index,userModel.headPath)}
+            ListHeaderComponent={({item,index}) => this.createHearder(item,index,user.headPath)}
             horizontal={false}
             data={this.state.data}
             renderItem={({item,index}) => this.createCell(item,index)}
@@ -36,13 +37,7 @@ class Mine extends Component {
   }
 
   componentDidMount() {
-      this.setState({
-        data: [
-          {vc:'Animations',text:'我的收藏',key:0},
-          {vc:'Animation',text:'观看历史',key:1},
-          {vc:'Video',text:'个人信息',key:2}
-        ]
-      })    
+  
   }
 
   createCell(item,index) {
@@ -75,18 +70,3 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
   }
 });
-
-
-const mapStateToProps = (state) => {
-  return {
-    userModel: state.userModel,
-  }
-}
-
-const mapDispatchToProps = (dispatch) => {    
-  return {
-      changeUser: (userModel) => dispatch({type: USER_ACTION,userModel:userModel}),
-  }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(Mine);

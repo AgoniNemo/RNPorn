@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Platform, StyleSheet,Image,TouchableOpacity,findNodeHandle} from 'react-native';
+import {Platform, StyleSheet,Image,TouchableOpacity,findNodeHandle,View} from 'react-native';
 import { SCREEN } from 'components/Public';
 import { BlurView, VibrancyView } from 'react-native-blur';
 // require('assets/image/header.jpg')
@@ -9,34 +9,35 @@ export default class MineHeader extends Component {
       super(props)
       this.state={
         data:[],
-        viewRef: findNodeHandle(require('assets/image/header.jpg')),
+        icon:null,
         backgroundImage:null,
       }
     }
   
-    imageLoaded() {
-      this.setState({ viewRef: findNodeHandle(this.backgroundImage) });
+    imageOnError() {
+      this.setState({ icon: require('assets/image/header.jpg') });
     }
 
-    render() {
-      console.log(this.props.icon);
-      
+
+    componentWillMount() {
+      this.setState({ icon: {uri:this.props.icon} });
+    }
+
+    render() {      
       return (
           <TouchableOpacity
           activeOpacity = {1}
           onPress={() => this.click(this.props.item)}>
             <Image style={styles.container}
-              ref={(img) => { this.backgroundImage = img; }}
-              source={require('assets/image/header.jpg')}
-              onLoadEnd={this.imageLoaded.bind(this)}
+              source={this.state.icon}
+              onError={this.imageOnError.bind(this)}
+              blurRadius={5}
               resizeMode='cover'>
             </Image>
-            <BlurView
-              style={styles.absolute}
-              viewRef={this.state.viewRef}
-              blurType="light"
-              blurAmount={10}/>
-            <Image style={styles.image} source={require('assets/image/header.jpg')} roundAsCircle={true}/>
+            <View style={styles.absolute}></View>
+            <Image style={styles.image} source={this.state.icon} 
+            onError={this.imageOnError.bind(this)}
+            roundAsCircle={true}/>
         </TouchableOpacity>
       )
     }
@@ -59,9 +60,12 @@ export default class MineHeader extends Component {
     absolute: {
       position: "absolute",
       top: 0, left: 0, bottom: 0, right: 0,
+      backgroundColor:'rgba(0,0,0,0.4)',
     },
     image: {
         position: "absolute",
+        borderWidth: 2 ,
+        borderColor:'#fff',
         width:SCREEN.width/2,
         height:SCREEN.width/2,
         borderRadius:SCREEN.width/4,

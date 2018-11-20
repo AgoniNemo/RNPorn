@@ -53,7 +53,6 @@ export default class Setting extends Component {
   }
 
   cellClick(item, index, section) {
-    console.log(section,item,index);
     if (index == 0 && section.index == 1) {
       this.props.navigation.navigate('Login');
     }

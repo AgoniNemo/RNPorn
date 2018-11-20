@@ -18,7 +18,9 @@ export default class MineCell extends Component {
           onPress={() => this.click(this.props.item)}>
               <View style={styles.container}>
                 <Text style={styles.text}>{this.props.item.text}</Text>
-                <Image style={styles.image} source={require('assets/image/i_right.png')} roundAsCircle={true}/>
+                <Image style={styles.image} 
+                source={require('assets/image/i_right.png')} 
+                roundAsCircle={true}/>
               </View>
         </TouchableOpacity>
       )
