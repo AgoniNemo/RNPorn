@@ -1,4 +1,4 @@
-import Reducer from 'reduxs/reducer/reducer';
+import Reducer from 'reduxs/reducer';
 import { createStore } from 'redux';
 
 export default () => {

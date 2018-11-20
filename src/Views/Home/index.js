@@ -8,33 +8,69 @@
 
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
-import {Platform, StyleSheet, Text, View,FlatList,Dimensions,TouchableOpacity} from 'react-native';
+import {Platform, StyleSheet, Text, View,FlatList,Dimensions,
+        TouchableOpacity,RefreshControl} from 'react-native';
 import NavigationBar from 'components/NavigationBar';
-import {Button,Toast} from 'antd-mobile-rn';
+import {Toast} from 'antd-mobile-rn';
 import HomeCell from './HomeCell'
-import DeviceStorage from 'lib/DeviceStorage';
-import UserManage from 'lib/UserManage';
-import { USER_ACTION } from 'reduxs/action/action';
 import { requestVideoList } from 'src/Api';
 import DefaultListView from 'views/DefaultListView/index';
 
-class Home extends Component {
+export default class Home extends Component {
 
   constructor(props){
     super(props)
     this.state={
-      data:[]
+      data:[],
+      refreshing: false,
+      page:0,
     }
   }
 
   componentWillMount() {
+    this.fetchDataList()
+  }
+
+  render() {
+    console.log(this.props);
+    
+    return (
+      <View style={styles.container}>
+        <NavigationBar title={'首页'}/>
+        <FlatList
+            horizontal={false}
+            ListEmptyComponent={() => this.createEmptyView()}
+            data={this.state.data}
+            renderItem={({item,index}) => this.createCell(item,index)}
+            keyExtractor={(item, index) => index.toString()}
+            refreshControl={this.createRefreshControl()}
+        />
+      </View>
+    )
+  }
+
+  // 上拉
+  refreshAction() {
+    console.log('this.state.page',this.state.page);
+    let page = this.state.page;
+    page += 1
+    this.setState({page:page})
+    console.log('page',page);
+    
+    this.fetchDataList()
+  }
+
+  fetchDataList() {
     const { user } = this.props.navigation.state.params;
     
     let param = {
        user:user.user,
        token:user.token,
        count:20,
-       page:0,
+       page:this.state.page,
+    }
+    if (!param) {
+        return
     }
     console.log('param',param);
     Toast.loading('加载中...',0,(()=>{}),true)
@@ -49,18 +85,12 @@ class Home extends Component {
     })
   }
 
-  render() {
+  createRefreshControl() {
     return (
-      <View style={styles.container}>
-        <NavigationBar title={'首页'}/>
-        <FlatList
-            horizontal={false}
-            ListEmptyComponent={() => this.createEmptyView()}
-            data={this.state.data}
-            renderItem={({item,index}) => this.createCell(item,index)}
-            keyExtractor={(item, index) => index.toString()}>
-        </FlatList>
-      </View>
+      <RefreshControl
+        refreshing={this.state.refreshing}
+        onRefresh={this.refreshAction}
+        title="加载中..."/>
     )
   }
 
@@ -77,7 +107,7 @@ class Home extends Component {
   }
 
   cellClick(item) {
-    Toast.success(item.text,1)
+    Toast.success(item.videoId,1)
     // this.props.navigation.navigate('Login');
   }
 
@@ -90,17 +120,3 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
   }
 });
-
-const mapStateToProps = (state) => {
-  return {
-      user: state.user,
-  }
-}
-
-const mapDispatchToProps = (dispatch) => {    
-  return {
-      changeUser: (usr) => dispatch({type: USER_ACTION,user:usr}),
-  }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(Home);

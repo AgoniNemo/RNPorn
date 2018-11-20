@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {Platform, StyleSheet,Image,TouchableOpacity,findNodeHandle} from 'react-native';
 import { SCREEN } from 'components/Public';
 import { BlurView, VibrancyView } from 'react-native-blur';
-
+// require('assets/image/header.jpg')
 export default class MineHeader extends Component {
 
     constructor(props){
@@ -19,6 +19,8 @@ export default class MineHeader extends Component {
     }
 
     render() {
+      console.log(this.props.icon);
+      
       return (
           <TouchableOpacity
           activeOpacity = {1}

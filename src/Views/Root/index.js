@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
 import LaunchView from 'views/LaunchView/index';
-import { USER_ACTION } from 'reduxs/action/action';
+import { USER_ACTION } from 'reduxs/action';
 import UserManage from 'lib/UserManage';
 
 class Root extends Component {
@@ -22,13 +22,13 @@ class Root extends Component {
 }
 const mapStateToProps = (state) => {
   return {
-      user: state.user,
+    userModel: state.userModel,
   }
 }
 
 const mapDispatchToProps = (dispatch) => {    
     return {
-        changeUser: (usr) => dispatch({type: USER_ACTION,user:usr}),
+        changeUser: (userModel) => dispatch({type: USER_ACTION,userModel:userModel}),
     }
 }
 

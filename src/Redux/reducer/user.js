@@ -1,19 +1,18 @@
-import { USER_ACTION } from 'reduxs/action/action';
+import { USER_ACTION } from 'reduxs/action';
 
-const userReducer = (state = {user:null}, action) => {
+const userReducer = (state = {userModel:null}, action) => {
     const newState = state;
-    const user = action.user;
-
+    const userModel = action.userModel;
+    
     switch (action.type) {
         case USER_ACTION:
             return {
                 ...state,
-                user: user
+                ...userModel,
             }
         default:
             return {
-                ...state,
-                user: user
+                ...state
             }
     }
 }

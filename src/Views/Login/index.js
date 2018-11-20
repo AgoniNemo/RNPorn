@@ -5,26 +5,26 @@ import {Button,Toast} from 'antd-mobile-rn';
 import { requestLogin } from 'src/Api';
 import { TextInput,Color,SCREEN } from 'components/Public';
 import UserManage from 'lib/UserManage';
-import { USER_ACTION } from 'reduxs/action/action';
+import { USER_ACTION , APP_STATUS_ACTION} from 'reduxs/action';
 
 class Login extends Component{
 
   constructor(props){
     super(props)
     this.state={
-      isUpdate:false
+      user:'',
+      password: '',
     }
-    
   }
 
   render() {
-    const { user } = this.props
+    const { userModel } = this.props;
     return (
       <ImageBackground style={styles.container}
        source={require('assets/image/back.png')} resizeMode='cover'>
         <View style={styles.inputContaner}>
-          <TextInput source={require('assets/image/user.png')} defaultValue={((user != null) ? user.user :'')} placeholder={'用户名'} callBackFunc={(value)=> user.user = value}/>
-          <TextInput source={require('assets/image/password.png')} defaultValue={((user != null) ? user.password :'')} placeholder={'密码'} callBackFunc={(value)=> user.password = value} secureTextEntry={true}/>
+          <TextInput source={require('assets/image/user.png')} defaultValue={userModel.user} placeholder={'用户名'} callBackFunc={(value)=> userModel.user = value}/>
+          <TextInput source={require('assets/image/password.png')} defaultValue={userModel.password} placeholder={'密码'} callBackFunc={(value)=> userModel.password = value} secureTextEntry={true}/>
           <Button type='primary' size={'large'} style={styles.loginBtn} activeStyle={styles.btnSelect} onClick={this.loginClick.bind(this)}>登陆</Button>
         </View>
       </ImageBackground>
@@ -32,15 +32,21 @@ class Login extends Component{
   }
 
   componentDidMount() {
-    console.log(this.props);
+      UserManage.get().then(user => {
+        if (user) {
+          this.loginClick()
+        }
+      })
   }
   
   loginClick() {
-    if (this.props.user.user == undefined || this.props.user.user == '') {
+    console.log(this.props);
+    
+    if (this.props.userModel.user == undefined || this.props.userModel.user == '') {
       Toast.show('账号不能为空',1)
       return
     }
-    if (this.props.user.password == undefined || this.props.user.password == '') {
+    if (this.props.userModel.password == undefined || this.props.userModel.password == '') {
       Toast.show('密码不能为空',1)
       return
     }
@@ -49,19 +55,19 @@ class Login extends Component{
 
   loginAction() {
     let param = {
-      user: this.props.user.user,
-      password: this.props.user.password
+      user: this.props.userModel.user,
+      password: this.props.userModel.password
     }
     Toast.loading('加载中...',0,(()=>{}),true)
     requestLogin(param).then(res => {
-      console.log(res);
       const user = {
-        ...this.props.user,
+        password:param.password,
         ...res.data
       }
-      UserManage.update(user);
+      UserManage.save(user);
       if (res.code == '0') {
         this.props.changeUser(user)
+        this.props.changeStatus(true)
         this.props.navigation.navigate('MainTab',{
           user:user
         });
@@ -98,13 +104,15 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = (state) => {
   return {
-      user: state.user,
+      userModel: state.userModel,
+      status: state.status,
   }
 }
 
 const mapDispatchToProps = (dispatch) => {    
   return {
-      changeUser: (usr) => dispatch({type: USER_ACTION,user:usr}),
+      changeUser: (userModel) => dispatch({type: USER_ACTION,userModel:userModel}),
+      changeStatus: (status) => dispatch({type: APP_STATUS_ACTION,status:status}),
   }
 }
 
