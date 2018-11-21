@@ -64,7 +64,7 @@ class Login extends Component{
         this.props.changeUser(user)
         this.props.changeStatus(true)
         this.props.navigation.navigate('MainTab',{
-          user:user
+          user:user,
         });
       }else{
         Toast.show(res.message,1)

@@ -58,7 +58,7 @@ export default class Mine extends Component {
   }
 
   settingClick() {
-    this.props.navigation.navigate('Setting');
+    this.props.navigation.navigate('Setting', {transition: 'forHorizontalRight'});
   }
 
 }

@@ -28,7 +28,9 @@ export default class Home extends Component {
   }
 
   componentWillMount() {
-    this.fetchDataList()
+    setTimeout(() => {
+      this.fetchDataList()
+    }, 200);
   }
 
   render() {
