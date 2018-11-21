@@ -10,13 +10,7 @@ export default class DeviceStorage {
         });
     }
     static save(key, value) {
-        try {
-            let json = JSON.stringify(value);
-            return AsyncStorage.setItem(key, json);
-        } catch (error) {
-            console.log('AsyncStorage error',error);
-            return null;
-        }
+        return AsyncStorage.setItem(key, JSON.stringify(value));
     }
     static update(key, value) {
         return DeviceStorage.get(key).then((item) => {
