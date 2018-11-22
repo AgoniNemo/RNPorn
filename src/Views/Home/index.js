@@ -29,8 +29,8 @@ export default class Home extends Component {
 
   componentWillMount() {
     setTimeout(() => {
-      this.fetchDataList()
-    }, 200);
+      this.fetchDataList(0)
+    }, 300);
   }
 
   render() {
@@ -44,28 +44,35 @@ export default class Home extends Component {
             renderItem={({item,index}) => this.createCell(item,index)}
             keyExtractor={(item, index) => index.toString()}
             refreshControl={this.createRefreshControl()}
+            onEndReachedThreshold={0.1}//执行上啦的时候10%执行
+            onEndReached={this.loreMore()}
         />
       </View>
     )
   }
 
-  // 上拉
+  // 下拉刷新
   refreshAction() {
-    let page = this.state.page;
-    page += 1
-    this.setState({page:page})
-    
-    this.fetchDataList()
+    this.setState({refreshing:true})
+    this.fetchDataList(0)
   }
 
-  fetchDataList() {
+  // 上拉加载更多
+  loreMore() {
+    let page = this.state.page
+    page += 1
+    
+  }
+
+  fetchDataList(page) {
+    
     const { user } = this.props.navigation.state.params;
     
     let param = {
        user:user.user,
        token:user.token,
        count:20,
-       page:this.state.page,
+       page:page,
     }
     if (!param) {
         return
@@ -73,10 +80,21 @@ export default class Home extends Component {
     Toast.loading('加载中...',0,(()=>{}),true)
     requestVideoList(param).then((res) => {
       if (res.code == '0') {
-        this.setState({data:res.data.list})
+         let data = res.data.list
+         if (data.length > 0) {
+            let list = this.state.data;
+            console.log(page,list);
+            if (page == 0) {
+                list = data
+            }else{
+                list.concat(data)
+            }
+            this.setState({data:list,page:page})
+         }
       }else{
         Toast.show(res.message,1)
       }
+      this.setState({refreshing:false})
       Toast.hide()
     })
   }
@@ -85,7 +103,7 @@ export default class Home extends Component {
     return (
       <RefreshControl
         refreshing={this.state.refreshing}
-        onRefresh={this.refreshAction}
+        onRefresh={() => this.refreshAction()}
         title="加载中..."/>
     )
   }

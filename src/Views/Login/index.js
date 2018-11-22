@@ -9,11 +9,6 @@ import { USER_ACTION , APP_STATUS_ACTION} from 'reduxs/action';
 
 class Login extends Component{
 
-  constructor(props){
-    super(props)
-
-  }
-
   render() {
     const { userModel } = this.props;
     return (
@@ -63,6 +58,7 @@ class Login extends Component{
       if (res.code == '0') {
         this.props.changeUser(user)
         this.props.changeStatus(true)
+        console.log('props',this.props);
         this.props.navigation.navigate('MainTab',{
           user:user,
         });
