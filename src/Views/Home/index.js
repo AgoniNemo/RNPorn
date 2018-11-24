@@ -15,6 +15,7 @@ import {Toast} from 'antd-mobile-rn';
 import HomeCell from './HomeCell'
 import { requestVideoList } from 'src/Api';
 import DefaultListView from 'views/DefaultListView/index';
+import { SCREEN } from 'components/Public';
 
 export default class Home extends Component {
 
@@ -38,14 +39,15 @@ export default class Home extends Component {
       <View style={styles.container}>
         <NavigationBar title={'首页'}/>
         <FlatList
+            style={{height:SCREEN.height}}
             horizontal={false}
-            ListEmptyComponent={() => this.createEmptyView()}
             data={this.state.data}
             renderItem={({item,index}) => this.createCell(item,index)}
             keyExtractor={(item, index) => index.toString()}
             refreshControl={this.createRefreshControl()}
-            onEndReachedThreshold={0.1}//执行上啦的时候10%执行
-            onEndReached={this.loreMore()}
+            ListFooterComponent={this.createFooter()}
+            onEndReachedThreshold={0.01}//执行上啦的时候10%执行
+            onEndReached={this.loreMore.bind(this)}
         />
       </View>
     )
@@ -61,11 +63,11 @@ export default class Home extends Component {
   loreMore() {
     let page = this.state.page
     page += 1
-    
+    this.fetchDataList(page)
   }
 
   fetchDataList(page) {
-    
+    this.setState({refreshing:true})
     const { user } = this.props.navigation.state.params;
     
     let param = {
@@ -83,12 +85,11 @@ export default class Home extends Component {
          let data = res.data.list
          if (data.length > 0) {
             let list = this.state.data;
-            console.log(page,list);
             if (page == 0) {
                 list = data
             }else{
-                list.concat(data)
-            }
+              list = list.concat(data)
+            }            
             this.setState({data:list,page:page})
          }
       }else{
@@ -105,6 +106,16 @@ export default class Home extends Component {
         refreshing={this.state.refreshing}
         onRefresh={() => this.refreshAction()}
         title="加载中..."/>
+    )
+  }
+
+  createFooter() {
+    console.log(this.state.refreshing);
+    
+    return (
+      <View style={styles.footer}>
+          <Text style={{flex:1}}>正在加载更多数据...</Text>
+      </View>
     )
   }
 
@@ -132,5 +143,9 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     backgroundColor: '#fff',
+  },
+  footer: {
+    flex:1,
+    textAlign:'center',
   }
 });
