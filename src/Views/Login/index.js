@@ -58,7 +58,6 @@ class Login extends Component{
       if (res.code == '0') {
         this.props.changeUser(user)
         this.props.changeStatus(true)
-        console.log('props',this.props);
         this.props.navigation.navigate('MainTab',{
           user:user,
         });

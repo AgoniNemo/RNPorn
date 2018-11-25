@@ -11,7 +11,8 @@ export default class Classification extends Component {
   constructor(props){
     super(props)
     this.state={
-      data:[]
+      data:[],
+      user:null,
     }
   }
 
@@ -33,14 +34,19 @@ export default class Classification extends Component {
 
   componentDidMount() {
     const list = categories;
+    const { user } = this.props.navigation.state.params;
     this.setState({
-      data: list
+      data: list,
+      user: user,
     })
   }
 
   createCell(item,index) {
+    console.log();
+    
     return (
-      <ClassificationCell cellClick={(item) => this.cellClick(item)} item={item}/>
+      <ClassificationCell cellClick={(item) => this.cellClick(item)} 
+      item={item} isShow={this.state.user !== '1000'}/>
     );
   }
 
