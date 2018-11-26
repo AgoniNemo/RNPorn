@@ -22,7 +22,7 @@ export default class NMTextInput extends Component {
   
   const styles = StyleSheet.create({
     container: {
-        marginBottom:10,
+        marginBottom:(Platform.OS == "ios") ? 20 :10,
         padding: 0,
         borderBottomWidth:1,
         borderBottomColor: 'white',
@@ -31,12 +31,13 @@ export default class NMTextInput extends Component {
     image: {
         width:41/2,
         height:29/2,
-        top:18,
+        top: (Platform.OS == "ios") ? 3 :18,
         marginRight:10
     },
     textInput: {
         color:'white',
         fontSize:17,
-        flex:1
+        flex:1,
+        marginBottom:(Platform.OS == "ios") ? 5 : 1,
     },
   });

@@ -1,6 +1,7 @@
 import MainTab from 'components/TabNavigator';
 import Login from 'views/Login/index';
 import Setting from 'views/Setting/index';
+import VideoDetails from 'views/VideoDetails/index';
 
 /*
     --- 路由配置 ---
@@ -27,6 +28,10 @@ const RouteConfig = {
     Setting: {
         screen: Setting,
         navigationOptions: ({navigation}) => ({title: '设置',gesturesEnable: true})
+    },
+    VideoDetails:{
+        screen: VideoDetails,
+        navigationOptions: ({navigation}) => ({gesturesEnable: true})
     },
 }
 

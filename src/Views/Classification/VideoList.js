@@ -15,7 +15,7 @@ import HomeCell from './HomeCell'
 import { requestVideoList } from 'src/Api';
 import FlatList from 'components/TableList';
 
-export default class Home extends Component {
+export default class VideoList extends Component {
 
   constructor(props){
     super(props)
@@ -38,7 +38,6 @@ export default class Home extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <NavigationBar title={'首页'}/>
         <FlatList
             data={this.state.data}
             refreshing={this.state.refreshing}
@@ -104,11 +103,8 @@ export default class Home extends Component {
   }
 
   cellAction(item) {
-    // Toast.success(item.videoId,1)
-    this.props.navigation.navigate('VideoDetails',{
-        transition: 'forHorizontalRight',
-        item:item,
-    });
+    Toast.success(item.videoId,1)
+    // this.props.navigation.navigate('Login');
   }
 
 }

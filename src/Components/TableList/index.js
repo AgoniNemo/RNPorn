@@ -9,7 +9,8 @@ export default class TableList extends Component {
     constructor(props){
         super(props)
         this.state={
-            isEmpty:false
+            isEmpty:false,
+            isLoreMore:false,
         }
     }
 
@@ -36,9 +37,10 @@ export default class TableList extends Component {
         if (this.props.data.length == 0) {
             this.setState({isEmpty:false})
         }
+        this.setState({isLoreMore:false})
     }
 
-        // 下拉刷新
+    // 下拉刷新
     refreshClick() {
         if (this.props.onRefresh) {
             this.props.onRefresh()
@@ -47,6 +49,7 @@ export default class TableList extends Component {
 
     // 上拉加载更多
     loreMore() {
+        this.setState({isLoreMore:true})
         if (this.props.onEndReached) {
             this.props.onEndReached()
         }
@@ -55,7 +58,7 @@ export default class TableList extends Component {
     createRefreshControl() {
         return (
           <RefreshControl
-            refreshing={this.props.refreshing}
+            refreshing={(this.props.refreshing && this.state.isLoreMore == false)}
             onRefresh={() => this.refreshClick()}
             title="加载中..."/>
         )
