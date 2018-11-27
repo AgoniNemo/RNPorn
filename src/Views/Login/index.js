@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
-import {Platform, StyleSheet, Text, View,ImageBackground,Dimensions,Image} from 'react-native';
+import {Platform, StyleSheet, Text, View,ImageBackground,Dimensions,Image,Keyboard} from 'react-native';
 import {Button,Toast} from 'antd-mobile-rn';
 import { requestLogin } from 'src/Api';
 import { TextInput,Color,SCREEN } from 'components/Public';
@@ -48,6 +48,7 @@ class Login extends Component{
       user: this.props.userModel.user,
       password: this.props.userModel.password
     }
+    Keyboard.dismiss();
     Toast.loading('加载中...',0,(()=>{}),true)
     requestLogin(param).then(res => {
       const user = {

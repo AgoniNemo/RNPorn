@@ -11,7 +11,6 @@ class Root extends Component {
     UserManage.get().then(usr => {
         this.props.changeUser(usr)
     });
-    
   }
 
   render() {

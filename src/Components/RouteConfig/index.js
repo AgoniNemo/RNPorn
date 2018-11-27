@@ -2,6 +2,7 @@ import MainTab from 'components/TabNavigator';
 import Login from 'views/Login/index';
 import Setting from 'views/Setting/index';
 import VideoDetails from 'views/VideoDetails/index';
+import ClassificationList from 'views/Classification/ClassificationList';
 
 /*
     --- 路由配置 ---
@@ -33,6 +34,10 @@ const RouteConfig = {
         screen: VideoDetails,
         navigationOptions: ({navigation}) => ({header: null, gesturesEnable: true})
     },
+    ClassificationList: {
+        screen: ClassificationList,
+        navigationOptions: ({navigation}) => ({title: '设置',gesturesEnable: true})
+    }
 }
 
 export default RouteConfig;

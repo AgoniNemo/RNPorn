@@ -1,19 +1,21 @@
 
 import React, {Component} from 'react';
 import Video from 'react-native-video';
+import {Toast,Button} from 'antd-mobile-rn';
 import {Platform, StyleSheet, Text,Dimensions,TouchableOpacity,View,Image,
-    TouchableWithoutFeedback, Button, Slider} from 'react-native';
+    TouchableWithoutFeedback, Slider,ActivityIndicator,StatusBar} from 'react-native';
 import Orientation from 'react-native-orientation';
-import { SCREEN } from 'components/Public';
+import { SCREEN,Color } from 'components/Public';
 import NavigationBar from 'components/NavigationBar';
-
+import FlatList from 'components/TableList';
 
 export default class VideoDetails extends Component {
     constructor(props){
         super(props)
         this.state = {
+            data:[],
             videoUrl: null,
-            videoCover: "assets/image/back.png",
+            videoCover: 'assets/image/back.png',
             videoWidth: SCREEN.width,
             videoHeight:  SCREEN.width * 9/16, // 默认16：9的宽高比
             showVideoCover: true,    // 是否显示视频封面
@@ -23,7 +25,8 @@ export default class VideoDetails extends Component {
             duration: 0,           // 视频的总时长
             isFullScreen: false,     // 当前是否全屏显示
             playFromBeginning: false, // 是否从头开始播放
-            title:'',
+            title:null,
+            isLoading:false,
           };
     }
     
@@ -32,7 +35,6 @@ export default class VideoDetails extends Component {
       this.setState({
           videoUrl:item.playPath,
           videoCover:item.icon,
-          duration: item.duration,
           title:item.title,
       })
     }
@@ -40,11 +42,8 @@ export default class VideoDetails extends Component {
       render() {
         return (
           <View style={styles.container} onLayout={this._onLayout}>
-            {!this.state.isFullScreen ? 
-            <NavigationBar title={this.state.title}
-            leftIcon={require('assets/image/i_left_arrow_black.png')}
-            leftClick={this.backClick.bind(this)}/> : null}
-            <View style={{ width: this.state.videoWidth, height: this.state.videoHeight,        backgroundColor:'#000000' }}>
+            <View style={{ width: this.state.videoWidth, height: this.state.videoHeight,        
+              backgroundColor:'#000000' }}>
               <Video
                 ref={(ref) => this.videoPlayer = ref}
                 source={{uri: this.state.videoUrl}}
@@ -92,7 +91,7 @@ export default class VideoDetails extends Component {
                     justifyContent:'center'
                   }}>
                   {
-                    this.state.isPlaying ? null :
+                    this.state.isPlaying ? <ActivityIndicator animating={this.state.isLoading} color='#fff' size='large'/> :
                       <TouchableWithoutFeedback onPress={() => { this.onPressPlayButton() }}>
                         <Image
                           style={styles.playButton}
@@ -104,34 +103,64 @@ export default class VideoDetails extends Component {
               </TouchableWithoutFeedback>
               {
                 this.state.showVideoControl ?
-                  <View style={[styles.control, {width: this.state.videoWidth}]}>
-                    <TouchableOpacity activeOpacity={0.3} onPress={() => { this.onControlPlayPress() }}>
-                      <Image
-                        style={styles.playControl}
-                        source={this.state.isPlaying ? require('assets/image/icon_control_pause.png') : require('assets/image/icon_control_play.png')}
+                  <View style={[styles.control,{width: this.state.videoWidth, height: this.state.videoHeight}]}>
+                    <View style={[styles.topControl, {width: this.state.videoWidth}]}>
+                      <TouchableOpacity activeOpacity={0.3} onPress={() => { this.backClick() }}>
+                        <Image
+                          style={styles.goBack}
+                          source={require('assets/image/i_goback.png')}
+                        />
+                      </TouchableOpacity>
+                      <TouchableOpacity activeOpacity={0.3} onPress={() => { this.backClick() }}>
+                        <Image
+                          style={styles.more}
+                          source={require('assets/image/icon_video_more.png')}
+                        />
+                      </TouchableOpacity>
+                    </View>
+                    <View style={[styles.bottomControl, {width: this.state.videoWidth}]}>
+                      <TouchableOpacity activeOpacity={0.3} onPress={() => { this.onControlPlayPress() }}>
+                        <Image
+                          style={styles.playControl}
+                          source={this.state.isPlaying ? require('assets/image/icon_control_pause.png') : require('assets/image/icon_control_play.png')}
+                        />
+                      </TouchableOpacity>
+                      <Text style={styles.time}>{this.formatTime(this.state.currentTime)}</Text>
+                      <Slider
+                        style={{flex: 1}}
+                        maximumTrackTintColor={'#999999'}
+                        minimumTrackTintColor={'#00c06d'}
+                        thumbImage={require('assets/image/icon_control_slider.png')}
+                        value={this.state.currentTime}
+                        minimumValue={0}
+                        maximumValue={this.state.duration}
+                        onValueChange={(currentTime) => { this.onSliderValueChanged(currentTime) }}
                       />
-                    </TouchableOpacity>
-                    <Text style={styles.time}>{this.formatTime(this.state.currentTime)}</Text>
-                    <Slider
-                      style={{flex: 1}}
-                      maximumTrackTintColor={'#999999'}
-                      minimumTrackTintColor={'#00c06d'}
-                      thumbImage={require('assets/image/icon_control_slider.png')}
-                      value={this.state.currentTime}
-                      minimumValue={0}
-                      maximumValue={this.state.duration}
-                      onValueChange={(currentTime) => { this.onSliderValueChanged(currentTime) }}
-                    />
-                    <Text style={styles.time}>{this.formatTime(this.state.duration)}</Text>
-                    <TouchableOpacity activeOpacity={0.3} onPress={() => { this.onControlShrinkPress() }}>
-                      <Image
-                        style={styles.shrinkControl}
-                        source={this.state.isFullScreen ? require('assets/image/icon_control_shrink_screen.png') : require('assets/image/icon_control_full_screen.png')}
-                      />
-                    </TouchableOpacity>
+                      <Text style={styles.time}>{this.formatTime(this.state.duration)}</Text>
+                      <TouchableOpacity activeOpacity={0.3} onPress={() => { this.onControlShrinkPress() }}>
+                        <Image
+                          style={styles.shrinkControl}
+                          source={this.state.isFullScreen ? require('assets/image/icon_control_shrink_screen.png') : require('assets/image/icon_control_full_screen.png')}
+                        />
+                      </TouchableOpacity>
+                    </View>
                   </View> : null
               }
             </View>
+            {
+              this.state.isFullScreen ? null :
+              <View style={styles.bottomContainer}>
+                  <Text>{`   ${this.state.title}`}</Text>
+                  <View style={styles.bottom}>
+                    <TouchableOpacity activeOpacity={0.3} onPress={() => { this.collectAction() }}>
+                        <Text style={[styles.btnStyle,styles.collect]}>{`收藏`}</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity activeOpacity={0.3} onPress={() => { this.answerAction() }}>
+                        <Text style={[styles.btnStyle,styles.answer]}>{`回复`}</Text>
+                    </TouchableOpacity>
+                  </View>
+              </View>
+            }
           </View>
         )
       }
@@ -144,10 +173,12 @@ export default class VideoDetails extends Component {
       
       _onBuffering = () => {
         console.log('视频缓冲中...')
+        this.setState({isLoading:true})
       };
       
       _onLoaded = (data) => {
         console.log('视频加载完成');
+        this.setState({isLoading:false})
         this.setState({
           duration: data.duration,
         });
@@ -195,11 +226,18 @@ export default class VideoDetails extends Component {
                   this.setState({
                     showVideoControl: false
                   })
-                }, 3000
+                }, 5000
               )
             }
           )
         }
+      }
+
+      /// 返回
+      backClick() {
+        this.pauseVideo()
+        Orientation.unlockAllOrientations();
+        this.props.navigation.goBack();
       }
       
       /// 点击了播放器正中间的播放按钮
@@ -303,8 +341,14 @@ export default class VideoDetails extends Component {
         this.videoPlayer.seek(seekTime);
       }
 
-      backClick() {
-        this.props.navigation.goBack();
+      /// -------其他事件方法-------
+
+      collectAction() {
+        Toast.show('收藏成功！',2)
+      }
+      
+      answerAction() {
+        Toast.show('回复！',2)
       }
 
       formatTime(second) {
@@ -327,11 +371,21 @@ const styles = StyleSheet.create({
     container: {
       flex: 1,
       backgroundColor: '#f0f0f0',
-      marginTop:3,
+      height: SCREEN.height,
     },
     playButton: {
       width: 50,
       height: 50,
+    },
+    goBack: {
+      width: 24,
+      height: 24,
+      marginLeft:10,
+    },
+    more: {
+      width: 24,
+      height: 24,
+      marginRight:10,
     },
     playControl: {
       width: 24,
@@ -350,6 +404,11 @@ const styles = StyleSheet.create({
       marginRight: 10
     },
     control: {
+      position: 'absolute',
+      top:0,
+      left:0,
+    },
+    bottomControl: {
       flexDirection: 'row',
       height: 44,
       alignItems:'center',
@@ -357,5 +416,43 @@ const styles = StyleSheet.create({
       position: 'absolute',
       bottom: 0,
       left: 0
+    },
+    topControl: {
+      flexDirection: 'row',
+      justifyContent:'space-between',
+      height: 44,
+      alignItems:'center',
+      backgroundColor: 'rgba(0, 0, 0, 0.8)',
+      position: 'absolute',
+      top: 0,
+      left: 0
+    },
+    bottomContainer: {
+      position: 'absolute',
+      bottom:0,
+      width:SCREEN.width,
+      height:SCREEN.height - SCREEN.width * 9/16-StatusBar.currentHeight,
+    },
+    bottom: {
+      flexDirection: 'row',
+      position:'absolute',
+      bottom:0,
+      left:0,
+    },
+    btnStyle: {
+      height:44,
+      lineHeight:44,
+      width:SCREEN.width/2,
+      fontSize:16,
+      textAlign:'center',
+      color:'#fff',
+    },
+    collect: {
+      backgroundColor:Color.theme,
+      borderColor:Color.theme,
+    },
+    answer: {
+      backgroundColor:'#000',
+      borderColor:'#000',
     },
 });

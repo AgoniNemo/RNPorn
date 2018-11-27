@@ -42,16 +42,18 @@ buildTypes {
 ```
 
 ### 4.生成发行APK包
+1.生成index.android.bundle
+```
+react-native bundle --platform android --dev false --entry-file index.js  --bundle-output android/app/src/main/assets/index.android.bundle  --assets-dest android/app/src/main/res/
+```
+
+2.生成发行APK包
 ```
 cd android && ./gradlew assembleRelease
 ```
 
-### 运行闪退
-1.创建assets
+### 一开始运行就闪退问题
+创建assets
 ```
 mkdir -p android/app/src/main/assets
-```
-2.生成index.android.bundle
-```
-react-native bundle --platform android --dev false --entry-file index.js  --bundle-output android/app/src/main/assets/index.android.bundle  --assets-dest android/app/src/main/res/
 ```

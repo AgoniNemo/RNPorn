@@ -42,8 +42,6 @@ export default class Classification extends Component {
   }
 
   createCell(item,index) {
-    console.log();
-    
     return (
       <ClassificationCell cellClick={(item) => this.cellClick(item)} 
       item={item} isShow={this.state.user !== '1000'}/>
@@ -51,9 +49,9 @@ export default class Classification extends Component {
   }
 
   cellClick(item) {
-    Toast.success(item.title,1)
-    // this.props.navigation.navigate('Login');
-    this.props.navigation.navigate('Setting');
+    this.props.navigation.navigate('ClassificationList',{
+      item:item,
+    });
   }
 
 

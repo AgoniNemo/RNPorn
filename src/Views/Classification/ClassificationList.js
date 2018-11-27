@@ -11,11 +11,11 @@ import { connect } from 'react-redux';
 import {Platform, StyleSheet, View} from 'react-native';
 import NavigationBar from 'components/NavigationBar';
 import {Toast} from 'antd-mobile-rn';
-import HomeCell from './HomeCell'
+import HomeCell from 'views/Home/HomeCell'
 import { requestVideoList } from 'src/Api';
 import FlatList from 'components/TableList';
 
-export default class VideoList extends Component {
+export default class ClassificationList extends Component {
 
   constructor(props){
     super(props)

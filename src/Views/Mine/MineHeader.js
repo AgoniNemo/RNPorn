@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {Platform, StyleSheet,Image,TouchableOpacity,findNodeHandle,View} from 'react-native';
 import { SCREEN } from 'components/Public';
-import { BlurView, VibrancyView } from 'react-native-blur';
+
 // require('assets/image/header.jpg')
 export default class MineHeader extends Component {
 

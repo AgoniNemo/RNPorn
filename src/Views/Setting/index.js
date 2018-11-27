@@ -1,7 +1,8 @@
 import React, {Component} from 'react';
 import {Platform, StyleSheet, Text, View,SectionList,TouchableOpacity} from 'react-native';
-import {Toast} from 'antd-mobile-rn';
+import {Toast,Modal} from 'antd-mobile-rn';
 import { SCREEN , Color} from 'components/Public';
+import UserManage from 'lib/UserManage';
 
 export default class Setting extends Component {
 
@@ -53,8 +54,16 @@ export default class Setting extends Component {
   }
 
   cellClick(item, index, section) {
+   
     if (index == 0 && section.index == 1) {
-      this.props.navigation.navigate('Login');
+      const alertInstance = Modal.alert('提示', '是否退出登录', [
+        { text: '取消', onPress: () => console.log('cancel'), style: 'default' },
+        { text: '确定', onPress: () => {
+            UserManage.delete();
+            this.props.navigation.popToTop()
+        }},
+      ]);
+      
     }
     
   }
