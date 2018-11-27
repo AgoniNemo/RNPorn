@@ -31,7 +31,7 @@ const RouteConfig = {
     },
     VideoDetails:{
         screen: VideoDetails,
-        navigationOptions: ({navigation}) => ({gesturesEnable: true})
+        navigationOptions: ({navigation}) => ({header: null, gesturesEnable: true})
     },
 }
 

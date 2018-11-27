@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {Platform, StyleSheet, Text, View,Image,Dimensions,TouchableOpacity} from 'react-native';
-import {BoxShadow} from 'react-native-shadow'
+import {BoxShadow} from 'react-native-shadow';
 import { SCREEN } from 'components/Public';
 
 export default class NavigationBar extends Component {
@@ -27,22 +27,34 @@ export default class NavigationBar extends Component {
         return (
             <BoxShadow setting={shadowOpt}>
                 <View style={styles.container}>
-                    {this.props.rightIcon  ? 
+                    {this.props.leftIcon  ? 
                         <TouchableOpacity
-                        style={styles.imageContainer}
+                        style={styles.leftImageContainer}
                         activeOpacity = {0.5}
-                        onPress={() => this.click()}>
-                            <Image style={{width:23,height:23}} source={this.props.rightIcon}/>
+                        onPress={() => this.lClick()}>
+                            <Image style={{width:23,height:23}} source={this.props.leftIcon}/>
                     </TouchableOpacity> : null}
                     <Text style={styles.title}>{this.props.title}</Text>
+                    {this.props.rightIcon  ? 
+                        <TouchableOpacity
+                        style={styles.rightImageContainer}
+                        activeOpacity = {0.5}
+                        onPress={() => this.rClick()}>
+                            <Image style={{width:23,height:23}} source={this.props.rightIcon}/>
+                    </TouchableOpacity> : null}
                 </View>
             </BoxShadow>
         )
     }
 
-    click() {
+    rClick() {
         if (this.props.rightClick) {
             this.props.rightClick()
+        }
+    }
+    lClick() {
+        if (this.props.leftClick) {
+            this.props.leftClick()
         }
     }
 }
@@ -59,7 +71,12 @@ const styles = StyleSheet.create({
         height: 44,
         lineHeight:44,
     },
-    imageContainer: {
+    leftImageContainer: {
+        position:'absolute',
+        left:10,
+        top:10.5,
+    },
+    rightImageContainer: {
         position:'absolute',
         right:10,
         top:10.5,

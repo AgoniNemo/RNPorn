@@ -3,7 +3,9 @@ import React, {Component} from 'react';
 import Video from 'react-native-video';
 import {Platform, StyleSheet, Text,Dimensions,TouchableOpacity,View,Image,
     TouchableWithoutFeedback, Button, Slider} from 'react-native';
+import Orientation from 'react-native-orientation';
 import { SCREEN } from 'components/Public';
+import NavigationBar from 'components/NavigationBar';
 
 
 export default class VideoDetails extends Component {
@@ -21,6 +23,7 @@ export default class VideoDetails extends Component {
             duration: 0,           // 视频的总时长
             isFullScreen: false,     // 当前是否全屏显示
             playFromBeginning: false, // 是否从头开始播放
+            title:'',
           };
     }
     
@@ -29,14 +32,19 @@ export default class VideoDetails extends Component {
       this.setState({
           videoUrl:item.playPath,
           videoCover:item.icon,
-          duration: 0,
+          duration: item.duration,
+          title:item.title,
       })
     }
 
       render() {
         return (
           <View style={styles.container} onLayout={this._onLayout}>
-            <View style={{ width: this.state.videoWidth, height: this.state.videoHeight, backgroundColor:'#000000' }}>
+            {!this.state.isFullScreen ? 
+            <NavigationBar title={this.state.title}
+            leftIcon={require('assets/image/i_left_arrow_black.png')}
+            leftClick={this.backClick.bind(this)}/> : null}
+            <View style={{ width: this.state.videoWidth, height: this.state.videoHeight,        backgroundColor:'#000000' }}>
               <Video
                 ref={(ref) => this.videoPlayer = ref}
                 source={{uri: this.state.videoUrl}}
@@ -124,11 +132,6 @@ export default class VideoDetails extends Component {
                   </View> : null
               }
             </View>
-            {/* <View style={{flex: 1, alignItems:'center', justifyContent:'center'}}>
-              <Button title={'开始播放'} onPress={() => {this.playVideo()}}/>
-              <Button title={'暂停播放'} onPress={() => {this.pauseVideo()}}/>
-              <Button title={'切换视频'} onPress={() => {this.switchVideo("http://ouprdwinp.bkt.clouddn.com/%E6%B5%B7%E8%B4%BC%E7%8E%8B%E7%B2%BE%E5%BD%A9%E5%89%AA%E8%BE%91.mp4", 0)}}/>
-            </View> */}
           </View>
         )
       }
@@ -192,7 +195,7 @@ export default class VideoDetails extends Component {
                   this.setState({
                     showVideoControl: false
                   })
-                }, 5000
+                }, 3000
               )
             }
           )
@@ -222,9 +225,9 @@ export default class VideoDetails extends Component {
       /// 点击了工具栏上的全屏按钮
       onControlShrinkPress() {
         if (this.state.isFullScreen) {
-        //   Orientation.lockToPortrait();
+          Orientation.lockToPortrait();
         } else {
-        //   Orientation.lockToLandscape();
+          Orientation.lockToLandscape();
         }
       }
       
@@ -266,7 +269,10 @@ export default class VideoDetails extends Component {
             isFullScreen: false,
           })
         }
-        // Orientation.unlockAllOrientations();
+        /**
+         * 解锁对方向的锁定
+         * Orientation.unlockAllOrientations();
+         */
       };
       
       /// -------外部调用事件方法-------
@@ -297,6 +303,10 @@ export default class VideoDetails extends Component {
         this.videoPlayer.seek(seekTime);
       }
 
+      backClick() {
+        this.props.navigation.goBack();
+      }
+
       formatTime(second) {
         let h = 0, i = 0, s = parseInt(second);
         if (s > 60) {
@@ -317,7 +327,7 @@ const styles = StyleSheet.create({
     container: {
       flex: 1,
       backgroundColor: '#f0f0f0',
-      marginTop:5,
+      marginTop:3,
     },
     playButton: {
       width: 50,
