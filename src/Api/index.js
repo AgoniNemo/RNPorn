@@ -44,3 +44,22 @@ export const requestVideoList = data => {
         })
         .then(res => res.data)
 }
+
+
+
+/**
+ * 单个分类列表
+ *
+ * @param      {<type>}  data    The data
+ * @return     {<type>}  { description_of_the_return_value }
+ */
+export const requestCategoriesList = data => {
+    return request({
+            url: `video/sortQuery`,
+            method: 'post',
+            data: qs.stringify({
+                ...data
+            })
+        })
+        .then(res => res.data)
+}

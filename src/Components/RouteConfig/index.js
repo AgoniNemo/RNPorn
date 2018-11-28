@@ -36,7 +36,7 @@ const RouteConfig = {
     },
     ClassificationList: {
         screen: ClassificationList,
-        navigationOptions: ({navigation}) => ({title: '设置',gesturesEnable: true})
+        navigationOptions: ({navigation}) => ({gesturesEnable: true})
     }
 }
 
