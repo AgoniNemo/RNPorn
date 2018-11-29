@@ -63,3 +63,22 @@ export const requestCategoriesList = data => {
         })
         .then(res => res.data)
 }
+
+
+/**
+ * 评论列表
+ *
+ * @param      {<type>}  data    The data
+ * @return     {<type>}  { description_of_the_return_value }
+ */
+export const requestCommentList = data => {
+    return request({
+            url: `comment/list`,
+            method: 'post',
+            data: qs.stringify({
+                ...data
+            })
+        })
+        .then(res => res.data)
+}
+

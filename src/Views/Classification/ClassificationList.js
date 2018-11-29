@@ -75,23 +75,29 @@ export default class ClassificationList extends Component {
     }
 
     Toast.loading('加载中...',0,(()=>{}),true)
-    CategoriesListAction(param,(res) => {
+    CategoriesListAction(param,{
+      Callback:(res) => {
         if (res.code == '0') {
-          let data = res.data
-          if (data.length > 0) {
+           let data = res.data
+           if (data.length > 0) {
               let list = this.state.data;
               if (page == 0) {
                   list = data
               }else{
                 list = list.concat(data)
               }            
-              this.setState({data:list,page:page})
-          }
+              this.setState({data:list,page:page,refreshing:false})
+           }
         }else{
           Toast.show(res.message,1)
         }
         this.setState({refreshing:false})
         Toast.hide()
+      },
+      err:(err) =>{
+        Toast.hide()
+        Toast.show('网络出错！',1)
+      }
     })
   }
 

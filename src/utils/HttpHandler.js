@@ -1,4 +1,5 @@
-import { requestVideoList, requestCategoriesList } from 'src/Api';
+import { requestVideoList, requestCategoriesList,
+         requestCommentList } from 'src/Api';
 import UserManage from 'lib/UserManage';
 
 
@@ -11,7 +12,7 @@ import UserManage from 'lib/UserManage';
  * @param      {<type>}    accountData  The account data
  * @return     {Promise}   { description_of_the_return_value }
  */
-export const CategoriesListAction = (params,Callback) => {
+export const CategoriesListAction = (params,{Callback,err}) => {
     return UserManage.get().then(usr => {
         const p = {
             ...params,
@@ -22,7 +23,7 @@ export const CategoriesListAction = (params,Callback) => {
             Callback(res)
         }).catch(e => {
             console.log(e)
-            Callback(e)
+            err(e)
         })
     });
 }
@@ -36,32 +37,43 @@ export const CategoriesListAction = (params,Callback) => {
  * @param      {<type>}    accountData  The account data
  * @return     {Promise}   { description_of_the_return_value }
  */
-export const VideoListAction = (params,Callback) => {
+export const VideoListAction = (params,{Callback,err}) => {
     return UserManage.get().then(usr => {
         const p = {
             ...params,
             user:usr.user,
             token:usr.token,
         }
-        requestCategoriesList(p).then(res => {
+        requestVideoList(p).then(res => {
             Callback(res)
         }).catch(e => {
             console.log(e)
-            Callback(e)
+            err(e)
         })
     });
 }
 
-/***
- * export const CategoriesListAction = ({commit}, accountData) => {
-    return new Promise((resolve, reject) => {
-        requestCategoriesList(params).then(res => {
-            
-            resolve(res)
+/**
+ * 评论列表
+ *
+ * @class      CommentListAction (name)
+ * @param      {Object}    arg1         The argument 1
+ * @param      {Function}  arg1.commit  The commit
+ * @param      {<type>}    accountData  The account data
+ * @return     {Promise}   { description_of_the_return_value }
+ */
+export const CommentListAction = (params,{Callback,err}) => {
+    return UserManage.get().then(usr => {
+        const p = {
+            ...params,
+            user:usr.user,
+            token:usr.token,
+        }
+        requestCommentList(p).then(res => {
+            Callback(res)
         }).catch(e => {
             console.log(e)
-            resolve(e)
+            err(e)
         })
-    })
+    });
 }
- */

@@ -16,9 +16,10 @@ export default class TableList extends Component {
 
     render() {
         return (
+          (this.props.data.length == 0) ? null :
           <View style={styles.container}>
             <FlatList
-                style={{height:SCREEN.height}}
+                style={{flex:1}}
                 horizontal={false}
                 data={this.props.data}
                 ListEmptyComponent={() => this.createEmptyView()}
@@ -26,11 +27,29 @@ export default class TableList extends Component {
                 keyExtractor={(item, index) => index.toString()}
                 refreshControl={this.createRefreshControl()}
                 ListFooterComponent={this.createFooter()}
-                onEndReachedThreshold={0.01}//执行上啦的时候10%执行
+                onEndReachedThreshold={0.02}//执行上啦的时候10%执行
                 onEndReached={this.loreMore.bind(this)}
             />
           </View>
         )
+    }
+
+    componentWillUnmount(){
+      this.setState = (state,callback)=>{
+        return;
+      };
+    }
+
+    shouldComponentUpdate(nextProps, nextState){
+        if (this.props.data !== nextProps.data) {
+          console.log("data---组件需要更新");
+          return true;
+        }
+        if (this.props.refreshing !== nextProps.refreshing) {
+            console.log("refreshing---组件需要更新");
+            return true;
+          }
+        return false;
     }
 
     componentDidMount() {
@@ -49,9 +68,12 @@ export default class TableList extends Component {
 
     // 上拉加载更多
     loreMore() {
-        this.setState({isLoreMore:true})
-        if (this.props.onEndReached) {
-            this.props.onEndReached()
+        console.log('loreMore');
+        if (!this.props.refreshing) {
+            this.setState({isLoreMore:true})
+            if (this.props.onEndReached) {
+                this.props.onEndReached()
+            }
         }
     }
 
@@ -65,11 +87,11 @@ export default class TableList extends Component {
       }
     
       createFooter() {
-        let isShow = (this.props.refreshing == false && this.props.data.length > 0)
+        let isShow = (this.state.isLoreMore == false && this.props.data.length > 0)
         return (
             (isShow) ? 
             <View style={styles.footer}>
-                <ActivityIndicator animating={isShow} color='#333' size='small' style={{marginRight:7}}/>
+                <ActivityIndicator animating={true} color='#333' size='small' style={{marginRight:7}}/>
                 <Text style={{textAlign:'center',}}>正在加载更多数据...</Text>
             </View>  : null
         )

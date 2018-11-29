@@ -57,3 +57,8 @@ cd android && ./gradlew assembleRelease
 ```
 mkdir -p android/app/src/main/assets
 ```
+
+###  指定模拟器运行
+```
+react-native run-ios --simulator "iPhone 8"
+```
