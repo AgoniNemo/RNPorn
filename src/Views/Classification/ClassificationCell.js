@@ -18,9 +18,9 @@ export default class ClassificationCell extends Component {
         activeOpacity = {0.5}
         onPress={() => this.click(this.props.item)}>
             <View style={styles.container}>
-                <Image style={styles.imageStyle} source={this.props.isShow ? require('assets/image/header.jpg'):model.icon} roundAsCircle={true}/>
+                <Image style={styles.imageStyle} source={this.props.isShow ? model.icon: require('assets/image/header.jpg')} roundAsCircle={true}/>
                 <View style={styles.textContainer}>
-                    <Text style={styles.text}>{this.props.isShow?'这是文字信息':model.title}</Text>
+                    <Text style={styles.text}>{this.props.isShow?model.title:'这是文字信息'}</Text>
                 </View>
             </View>
       </TouchableOpacity>

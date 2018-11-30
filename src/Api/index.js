@@ -82,3 +82,37 @@ export const requestCommentList = data => {
         .then(res => res.data)
 }
 
+/**
+ * 评论影片
+ *
+ * @param      {<type>}  data    The data
+ * @return     {<type>}  { description_of_the_return_value }
+ */
+export const requestCommentVideo = data => {
+    return request({
+            url: `comment/commit`,
+            method: 'post',
+            data: qs.stringify({
+                ...data
+            })
+        })
+        .then(res => res.data)
+}
+
+/**
+ * 收藏影片
+ *
+ * @param      {<type>}  data    The data
+ * @return     {<type>}  { description_of_the_return_value }
+ */
+export const requestCollectVideo = data => {
+    return request({
+            url: `video/colState`,
+            method: 'post',
+            data: qs.stringify({
+                ...data
+            })
+        })
+        .then(res => res.data)
+}
+

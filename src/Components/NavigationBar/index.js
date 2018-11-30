@@ -5,9 +5,16 @@ import { SCREEN } from 'components/Public';
 
 export default class NavigationBar extends Component {
 
+    constructor(props) {
+        super(props)
+        this.state={
+            navWidth:SCREEN.width,
+        }
+    }
+
     render() {
         const shadowOpt = {
-            width:SCREEN.width,
+            width:this.state.navWidth,
             height:44,
             color:"#000",
             border:1,
@@ -26,7 +33,7 @@ export default class NavigationBar extends Component {
 
         return (
             <BoxShadow setting={shadowOpt}>
-                <View style={styles.container}>
+                <View style={styles.container} >
                     {this.props.leftIcon  ? 
                         <TouchableOpacity
                         style={styles.leftImageContainer}
@@ -61,7 +68,7 @@ export default class NavigationBar extends Component {
 
 const styles = StyleSheet.create({
     container: {
-      width: SCREEN.width,
+      flex:1,
       height: 44,
       flexDirection: 'row',
       justifyContent: 'center',

@@ -13,16 +13,16 @@ export default class HomeCell extends Component {
         onPress={() => this.click(item)}>
           <View style={styles.cell}>
             <View style={styles.header}>
-                <Image roundAsCircle={true} style={styles.imageStyle} source={{uri:item.icon}}/>
+                <Image roundAsCircle={true} style={styles.imageStyle} source={this.props.isShow?{uri:item.icon}:require('assets/image/header.jpg')}/>
                 <View style={styles.bottomContainer}>
-                    <Text style={styles.textStyle}>{item.duration}</Text>
-                    <Text style={[styles.textStyle,{marginLeft:5}]}>{`观看次数:${item.views}`}</Text>
+                    <Text style={styles.textStyle}>{this.props.isShow?item.duration:'00:00'}</Text>
+                    <Text style={[styles.textStyle,{marginLeft:5}]}>{`观看次数:${this.props.isShow?item.views:'99999'}`}</Text>
                 </View>
                 <View style={styles.ratingContainer}>
-                    <Text style={styles.rating}>{`${item.rating}%`}</Text>
+                    <Text style={styles.rating}>{`${this.props.isShow?item.rating:100}%`}</Text>
                 </View>
             </View>
-            <Text style={styles.title}>{item.title}</Text>
+            <Text style={styles.title}>{this.props.isShow?item.title:'这是影片信息'}</Text>
           </View>
         </TouchableOpacity>
       );

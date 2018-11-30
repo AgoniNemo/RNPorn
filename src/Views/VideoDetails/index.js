@@ -1,7 +1,7 @@
 
 import React, {Component} from 'react';
 import Video from 'react-native-video';
-import {Toast} from 'antd-mobile-rn';
+import {Toast,Modal} from 'antd-mobile-rn';
 import {Platform, StyleSheet, Text,Dimensions,TouchableOpacity,View,Image,
     TouchableWithoutFeedback, Slider,ActivityIndicator,StatusBar} from 'react-native';
 import Orientation from 'react-native-orientation';
@@ -9,7 +9,8 @@ import { SCREEN,Color } from 'components/Public';
 import NavigationBar from 'components/NavigationBar';
 import FlatList from 'components/TableList';
 import ReplyCell from './ReplyCell';
-import { CommentListAction } from 'src/utils/HttpHandler';
+import UserManage from 'lib/UserManage';
+import { CommentListAction,CollectVideoAction,CommentVideoAction } from 'src/utils/HttpHandler';
 
 export default class VideoDetails extends Component {
     constructor(props){
@@ -17,10 +18,12 @@ export default class VideoDetails extends Component {
         this.state = {
             data:[],
             refreshing:false,
+            status:false, //默认为 不收藏
             page:0,
             videoId:null,
+            user:null,  // 用户对象
             videoUrl: null,
-            videoCover: 'assets/image/back.png',
+            videoCover: null,
             videoWidth: SCREEN.width,
             videoHeight:  SCREEN.width * 9/16, // 默认16：9的宽高比
             showVideoCover: true,    // 是否显示视频封面
@@ -32,6 +35,7 @@ export default class VideoDetails extends Component {
             playFromBeginning: false, // 是否从头开始播放
             title:null,
             isLoading:false,
+            isShow:true,
           };
     }
 
@@ -42,7 +46,7 @@ export default class VideoDetails extends Component {
             backgroundColor:'#000000' }}>
             <Video
               ref={(ref) => this.videoPlayer = ref}
-              source={{uri: this.state.videoUrl}}
+              source={this.state.isShow? {uri: this.state.videoUrl}:require('assets/video/dzs.mp4')}
               rate={1.0}
               volume={1.0}
               muted={false}
@@ -71,7 +75,7 @@ export default class VideoDetails extends Component {
                     height: this.state.videoHeight
                   }}
                   resizeMode={'cover'}
-                  source={{uri: this.state.videoCover}}
+                  source={this.state.isShow? {uri: this.state.videoCover}:require('assets/image/back.png')}
                 /> : null
             }
             <TouchableWithoutFeedback onPress={() => { this.hideControl() }}>
@@ -107,7 +111,7 @@ export default class VideoDetails extends Component {
                         source={require('assets/image/i_goback.png')}
                       />
                     </TouchableOpacity>
-                    <TouchableOpacity activeOpacity={0.3} onPress={() => { this.backClick() }}>
+                    <TouchableOpacity activeOpacity={0.3} onPress={() => { this.noFunction() }}>
                       <Image
                         style={styles.more}
                         source={require('assets/image/icon_video_more.png')}
@@ -147,7 +151,7 @@ export default class VideoDetails extends Component {
             this.state.isFullScreen ? null :
             <View style={styles.bottomContainer}>
                 <View style={{flex:1}}>
-                    <Text style={styles.title}>{`   ${this.state.title}`}</Text>
+                    <Text style={styles.title}>{`   ${this.state.isShow?this.state.title:'这是影片标题'}`}</Text>
                     <FlatList
                         data={this.state.data}
                         refreshing={this.state.refreshing}
@@ -158,9 +162,9 @@ export default class VideoDetails extends Component {
                 </View>
                 <View style={styles.bottom}>
                   <TouchableOpacity activeOpacity={0.3} onPress={() => { this.collectAction() }}>
-                      <Text style={[styles.btnStyle,styles.collect]}>{`收藏`}</Text>
+                      <Text style={[styles.btnStyle,styles.collect]}>{!this.state.status?'收藏':'取消收藏'}</Text>
                   </TouchableOpacity>
-                  <TouchableOpacity activeOpacity={0.3} onPress={() => { this.answerAction() }}>
+                  <TouchableOpacity activeOpacity={0.3} onPress={() => this.answerAction()}>
                       <Text style={[styles.btnStyle,styles.answer]}>{`回复`}</Text>
                   </TouchableOpacity>
                 </View>
@@ -173,17 +177,28 @@ export default class VideoDetails extends Component {
     /// -------生命周期-------
 
     componentWillMount() {
-      const { item } = this.props.navigation.state.params;
+      const { item,isShow } = this.props.navigation.state.params;
       this.setState({
           videoUrl:item.playPath,
           videoCover:item.icon,
           title:item.title,
           videoId:item.videoId,
+          isShow:isShow,
       })
+      UserManage.get().then(usr => {
+        this.setState({user:usr})
+      });
       setTimeout(() => {
         this.fetchDataList(0)
       }, 300);
     }
+
+    // shouldComponentUpdate(nextProps, nextState){
+    //   if (this.state.isLoading === nextState.isLoading) {
+    //       return false;
+    //   }
+    //   return true;
+    // }
 
     componentWillUnmount(){
       this.setState = (state,callback)=>{
@@ -204,18 +219,18 @@ export default class VideoDetails extends Component {
     
     _onLoaded = (data) => {
       console.log('视频加载完成');
-      this.setState({isLoading:false})
       this.setState({
         duration: data.duration,
       });
     };
     
     _onProgressChanged = (data) => {
-      console.log('视频进度更新');
+      console.log('视频进度更新',this.state.isPlaying);
       if (this.state.isPlaying) {
-        this.setState({
-          currentTime: data.currentTime,
-        })
+          this.setState({
+            currentTime: data.currentTime,
+            isLoading: false,
+          })
       }
     };
     
@@ -224,7 +239,8 @@ export default class VideoDetails extends Component {
       this.setState({
         currentTime: 0,
         isPlaying: false,
-        playFromBeginning: true
+        playFromBeginning: true,
+        isLoading:false,
       });
     };
     
@@ -264,6 +280,10 @@ export default class VideoDetails extends Component {
       this.pauseVideo()
       Orientation.unlockAllOrientations();
       this.props.navigation.goBack();
+    }
+
+    noFunction(){
+      Toast.show('该功能暂未开放！',2)
     }
     
     /// 点击了播放器正中间的播放按钮
@@ -362,7 +382,6 @@ export default class VideoDetails extends Component {
          count:20,
          page:page,
       }
-      console.log('res',page);
       Toast.loading('加载中...',0,(()=>{}),true)
       CommentListAction(param,{
         Callback:(res) => {
@@ -391,11 +410,86 @@ export default class VideoDetails extends Component {
     }
 
     collectAction() {
-      Toast.show('收藏成功！',2)
+      let msg = !this.state.status?'收藏':'取消收藏';
+
+      Modal.alert('提示', `是否${msg}影片！`, [
+        { text: '取消', onPress: () => console.log('cancel'), style: 'default' },
+        { text: '确定', onPress: () => {
+            this.requestCollectVideo()
+        }},
+      ]);
     }
     
     answerAction() {
       Toast.show('回复！',2)
+      Modal.prompt(
+        '提示',
+        null,
+        (msg: any) => {
+          this.onsubmmit(msg)
+        },
+        'default',
+        null,
+        ['请输入回复内容'],
+      );
+    }
+
+    onsubmmit(msg) {
+      let t = `${parseInt(Date.now() / 1000)}`
+      let params = {
+        id:this.state.videoId,
+        content:msg,
+        time:t
+      }
+      
+      CommentVideoAction(params,{
+        Callback:(res) => {
+          Toast.hide()
+          if (res.code == '0') {
+                let list = [
+                  ...this.state.data.concat(),
+                  {
+                    content: msg,
+                    headPath: this.state.user.headPath,
+                    name: this.state.user.name,
+                    sex: this.state.user.sex,
+                    time: t,
+                    user: this.state.user.user},
+                ]
+                this.setState({data:list})
+                Toast.show('影片回复成功',2)
+          }else{
+              Toast.show(res.message,1)
+          }
+        },
+        err:(err) =>{
+          Toast.show('网络出错！',1)
+        }
+      })
+    }
+
+    requestCollectVideo() {
+      let result = !this.state.status
+      let params = {
+        id:this.state.videoId,
+        collection:result?'1':'0',
+      }
+      Toast.loading('加载中...',0,(()=>{}),true)
+      CollectVideoAction(params,{
+        Callback:(res) => {
+          Toast.hide()
+          if (res.code == '0') {
+              this.setState({status:result})
+              Toast.show(`${result?'收藏':'取消收藏'}成功！`,2)
+          }else{
+            Toast.show(res.message,1)
+          }
+        },
+        err:(err) =>{
+          Toast.hide()
+          Toast.show('网络出错！',1)
+        }
+      })
     }
 
     createCell({item,index}) {

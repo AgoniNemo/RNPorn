@@ -4,6 +4,7 @@ import { createStackNavigator} from 'react-navigation';
 import { Easing,Animated,BackHandler } from 'react-native';
 import RouteConfig from 'src/Components/RouteConfig/index';
 import TransitionConfiguration from './NavigatorAnimated';
+import Orientation from 'react-native-orientation';
 
 let routes = [];
 let lastBackPressed = null;
@@ -18,6 +19,7 @@ export default class Navigation extends Component {
     }
     componentDidMount() {
         BackHandler.addEventListener('hardwareBackPress', this.onBackAndroid);
+        Orientation.lockToPortrait()
     }
 
     componentWillUnmount() {
@@ -28,6 +30,7 @@ export default class Navigation extends Component {
     onBackAndroid() {
         if (routes.length === 2) { // 根界面
             if (lastBackPressed && lastBackPressed + 2000 >= Date.now()) {
+                BackHandler.exitApp()
                 return false;
             }
             lastBackPressed = Date.now();

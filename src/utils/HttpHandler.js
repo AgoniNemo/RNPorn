@@ -1,5 +1,6 @@
 import { requestVideoList, requestCategoriesList,
-         requestCommentList } from 'src/Api';
+         requestCommentList,requestCollectVideo,
+         requestCommentVideo } from 'src/Api';
 import UserManage from 'lib/UserManage';
 
 
@@ -70,6 +71,55 @@ export const CommentListAction = (params,{Callback,err}) => {
             token:usr.token,
         }
         requestCommentList(p).then(res => {
+            Callback(res)
+        }).catch(e => {
+            console.log(e)
+            err(e)
+        })
+    });
+}
+/**
+ * 评论影片
+ *
+ * @class      CommentVideoAction (name)
+ * @param      {Object}    arg1         The argument 1
+ * @param      {Function}  arg1.commit  The commit
+ * @param      {<type>}    accountData  The account data
+ * @return     {Promise}   { description_of_the_return_value }
+ */
+export const CommentVideoAction = (params,{Callback,err}) => {
+    return UserManage.get().then(usr => {
+        const p = {
+            ...params,
+            user:usr.user,
+            token:usr.token,
+        }
+        requestCommentVideo(p).then(res => {
+            Callback(res)
+        }).catch(e => {
+            console.log(e)
+            err(e)
+        })
+    });
+}
+
+/**
+ * 收藏影片
+ *
+ * @class      CommentListAction (name)
+ * @param      {Object}    arg1         The argument 1
+ * @param      {Function}  arg1.commit  The commit
+ * @param      {<type>}    accountData  The account data
+ * @return     {Promise}   { description_of_the_return_value }
+ */
+export const CollectVideoAction = (params,{Callback,err}) => {
+    return UserManage.get().then(usr => {
+        const p = {
+            ...params,
+            user:usr.user,
+            token:usr.token,
+        }
+        requestCollectVideo(p).then(res => {
             Callback(res)
         }).catch(e => {
             console.log(e)

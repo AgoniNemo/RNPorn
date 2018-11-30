@@ -98,7 +98,7 @@ export default class Home extends Component {
 
   createCell({item,index}) {
     return (
-      <HomeCell cellClick={(item) => this.cellAction(item)} item={item} isShow={this.state.user !== '1000'}/>
+      <HomeCell cellClick={(item) => this.cellAction(item)} item={item} isShow={this.state.user.authority !== '1000'}/>
     );
   }
 
@@ -107,6 +107,7 @@ export default class Home extends Component {
     this.props.navigation.navigate('VideoDetails',{
         transition: 'forHorizontalRight',
         item:item,
+        isShow:(this.state.user.authority !== '1000'),
     });
   }
 

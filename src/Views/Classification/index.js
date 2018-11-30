@@ -44,13 +44,15 @@ export default class Classification extends Component {
   createCell(item,index) {
     return (
       <ClassificationCell cellClick={(item) => this.cellClick(item)} 
-      item={item} isShow={this.state.user !== '1000'}/>
+      item={item} isShow={this.state.user.authority !== '1000'}/>
     );
   }
 
   cellClick(item) {
     this.props.navigation.navigate('ClassificationList',{
+      transition: 'forHorizontalRight',
       item:item,
+      isShow:(this.state.user.authority !== '1000'),
     });
   }
 

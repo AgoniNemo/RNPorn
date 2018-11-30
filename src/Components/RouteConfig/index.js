@@ -3,6 +3,7 @@ import Login from 'views/Login/index';
 import Setting from 'views/Setting/index';
 import VideoDetails from 'views/VideoDetails/index';
 import ClassificationList from 'views/Classification/ClassificationList';
+import Information from 'views/Information/index';
 
 /*
     --- 路由配置 ---
@@ -37,6 +38,10 @@ const RouteConfig = {
     ClassificationList: {
         screen: ClassificationList,
         navigationOptions: ({navigation}) => ({gesturesEnable: true})
+    },
+    Information: {
+        screen: Information,
+        navigationOptions: ({navigation}) => ({title: '个人信息',gesturesEnable: true})
     }
 }
 

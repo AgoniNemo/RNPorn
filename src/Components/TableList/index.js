@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {Platform, StyleSheet, Text, View,FlatList,
     TouchableOpacity,RefreshControl,ActivityIndicator} from 'react-native';
-import { SCREEN } from 'components/Public';
+import { SCREEN,Color } from 'components/Public';
 import DefaultListView from 'views/DefaultListView/index';
 
 export default class TableList extends Component {
@@ -19,7 +19,7 @@ export default class TableList extends Component {
           (this.props.data.length == 0) ? null :
           <View style={styles.container}>
             <FlatList
-                style={{flex:1}}
+                style={[{flex:1},{...this.props.style}]}
                 horizontal={false}
                 data={this.props.data}
                 ListEmptyComponent={() => this.createEmptyView()}
@@ -41,15 +41,14 @@ export default class TableList extends Component {
     }
 
     shouldComponentUpdate(nextProps, nextState){
-        if (this.props.data !== nextProps.data) {
-          console.log("data---组件需要更新");
-          return true;
+        if (this.props.data === nextProps.data) {
+            return false;
         }
-        if (this.props.refreshing !== nextProps.refreshing) {
-            console.log("refreshing---组件需要更新");
-            return true;
-          }
-        return false;
+        if (this.props.refreshing === nextProps.refreshing) {
+            return false;
+        }
+        console.log("refreshing---组件需要更新");
+        return true;
     }
 
     componentDidMount() {
@@ -87,7 +86,9 @@ export default class TableList extends Component {
       }
     
       createFooter() {
-        let isShow = (this.state.isLoreMore == false && this.props.data.length > 0)
+        let isShow = (this.props.refreshing && this.props.data.length > 0)
+        console.log(this.state.isLoreMore,'refreshing',this.props.refreshing);
+        
         return (
             (isShow) ? 
             <View style={styles.footer}>
@@ -119,7 +120,7 @@ const styles = StyleSheet.create({
     container: {
       flex: 1,
       alignItems: 'center',
-      backgroundColor: '#fff',
+      backgroundColor: Color.sectionBackgroundColor,
     },
     footer: {
         alignItems: 'center', 

@@ -20,7 +20,7 @@ export default class HomeCell extends Component {
             <View style={styles.headerContainer}>
                 <Text style={styles.nameStyle}>{item.name}</Text>
                 <Image roundAsCircle={true} style={styles.imageStyle} source={this.state.url}
-              onError={this.imageOnError.bind(this)}/>
+                    onError={this.imageOnError.bind(this)}/>
             </View>
             <View style={styles.contentContainer}>
                 <Text style={styles.timeStyle}>{parseTime(item.time)}</Text>
@@ -42,7 +42,7 @@ export default class HomeCell extends Component {
 
 
   componentWillMount() {
-    this.setState({ url: {uri:this.props.item.headPath} });
+    this.setState({ url: (this.state.url.length == 0)? require('assets/image/header.jpg') :{uri:this.props.item.headPath} });
   }
 
 }

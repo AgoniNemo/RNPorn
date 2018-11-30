@@ -11,9 +11,9 @@ export default class Mine extends Component {
     super(props)
     this.state={
       data:[
-        {text:'我的收藏',key:0},
-        {text:'观看历史',key:1},
-        {text:'个人信息',key:2}
+        {text:'我的收藏',router:'Information',key:0},
+        {text:'观看历史',router:'Information',key:1},
+        {text:'个人信息',router:'Information',key:2}
       ]
     }
   }
@@ -47,8 +47,7 @@ export default class Mine extends Component {
   }
 
   cellClick(item) {
-    Toast.success(item.text,1)
-    // this.props.navigation.navigate('Login');
+    this.props.navigation.navigate(item.router);
   }
 
   createHearder(item,index,headPath) {

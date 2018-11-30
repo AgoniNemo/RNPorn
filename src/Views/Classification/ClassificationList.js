@@ -30,10 +30,15 @@ export default class ClassificationList extends Component {
       refreshing: false,
       page:0,
       user:null,
+      isShow:false,
     }
   }
 
   componentWillMount() {
+    const { isShow } = this.props.navigation.state.params;
+    this.setState({
+        isShow:isShow,
+    })
     setTimeout(() => {
       this.fetchDataList(0)
     }, 300);
@@ -104,13 +109,16 @@ export default class ClassificationList extends Component {
   createCell({item,index}) {
     console.log('createCell');
     return (
-      <HomeCell cellClick={(item) => this.cellAction(item)} item={item} isShow={this.state.user !== '1000'}/>
+      <HomeCell cellClick={(item) => this.cellAction(item)} item={item} isShow={this.state.isShow}/>
     );
   }
 
   cellAction(item) {
-    Toast.success(item.videoId,1)
-    // this.props.navigation.navigate('Login');
+    this.props.navigation.navigate('VideoDetails',{
+        transition: 'forHorizontalRight',
+        item:item,
+        isShow:this.state.isShow
+    });
   }
 
 }

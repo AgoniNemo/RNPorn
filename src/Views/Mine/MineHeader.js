@@ -20,7 +20,7 @@ export default class MineHeader extends Component {
 
 
     componentWillMount() {
-      this.setState({ icon: {uri:this.props.icon} });
+      this.setState({ icon: (this.props.icon.length == 0)?require('assets/image/header.jpg'):{uri:this.props.icon} });
     }
 
     render() {      
@@ -32,8 +32,7 @@ export default class MineHeader extends Component {
               source={this.state.icon}
               onError={this.imageOnError.bind(this)}
               blurRadius={5}
-              resizeMode='cover'>
-            </Image>
+              resizeMode='cover'/>
             <View style={styles.absolute}></View>
             <Image style={styles.image} source={this.state.icon} 
             onError={this.imageOnError.bind(this)}
