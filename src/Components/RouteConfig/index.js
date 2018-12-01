@@ -4,6 +4,8 @@ import Setting from 'views/Setting/index';
 import VideoDetails from 'views/VideoDetails/index';
 import ClassificationList from 'views/Classification/ClassificationList';
 import Information from 'views/Information/index';
+import ModifyInfo from 'views/ModifyInfo/index';
+import SettingSex from 'views/ModifyInfo/settingSex';
 
 /*
     --- 路由配置 ---
@@ -42,7 +44,15 @@ const RouteConfig = {
     Information: {
         screen: Information,
         navigationOptions: ({navigation}) => ({title: '个人信息',gesturesEnable: true})
-    }
+    },
+    ModifyInfo: {
+        screen: ModifyInfo,
+        navigationOptions: ({navigation}) => ({gesturesEnable: true})
+    },
+    SettingSex: {
+        screen: SettingSex,
+        navigationOptions: ({navigation}) => ({title: '修改性别',gesturesEnable: true})
+    },
 }
 
 export default RouteConfig;

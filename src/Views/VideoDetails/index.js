@@ -446,17 +446,16 @@ export default class VideoDetails extends Component {
         Callback:(res) => {
           Toast.hide()
           if (res.code == '0') {
-                let list = [
-                  ...this.state.data.concat(),
-                  {
-                    content: msg,
-                    headPath: this.state.user.headPath,
-                    name: this.state.user.name,
-                    sex: this.state.user.sex,
-                    time: t,
-                    user: this.state.user.user},
-                ]
-                this.setState({data:list})
+                let list = this.state.data
+                list.push({
+                  content: msg,
+                  headPath: this.state.user.headPath,
+                  name: this.state.user.name,
+                  sex: this.state.user.sex,
+                  time: t,
+                  user: this.state.user.user})
+                
+                this.setState({data:[...list]})
                 Toast.show('影片回复成功',2)
           }else{
               Toast.show(res.message,1)

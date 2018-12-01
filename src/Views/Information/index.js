@@ -3,6 +3,8 @@ import {Platform, StyleSheet, Text, View,Image,SectionList,TouchableOpacity} fro
 import {Toast,Modal} from 'antd-mobile-rn';
 import { SCREEN , Color} from 'components/Public';
 import UserManage from 'lib/UserManage';
+import { USER_ACTION } from 'reduxs/action';
+import store from 'reduxs/store/store';
 
 export default class Information extends Component {
 
@@ -11,6 +13,7 @@ export default class Information extends Component {
     this.state={
       data:[],
       icon:null,
+      user:null,
     }
   }
 
@@ -29,16 +32,18 @@ export default class Information extends Component {
 
   componentWillMount() {
     UserManage.get().then(usr => {
-        this.setState({ icon: (usr.headPath.length == 0)? require('assets/image/header.jpg') : {uri:usr.headPath},
-        data: [
-            { index: 0, data: [{title:'头像'}]},
-            { index: 1, data: [
-                {title:'昵称',end:usr.name},
-                {title:'性别',end:usr.sex},
-                {title:'年龄',end:usr.age},
-                {title:'手机号',end:usr.phoneNumber},
-                {title:'修改密码'}] },
-        ] });
+        this.setState({ 
+          icon: (usr.headPath.length == 0)? require('assets/image/header.jpg') : {uri:usr.headPath},
+          data: [
+              { index: 0, data: [{title:'头像'}]},
+              { index: 1, data: [
+                  {title:'昵称',end:usr.name,router:'ModifyInfo',type:'name'},
+                  {title:'性别',end:usr.sex,router:'SettingSex',type:'sex'},
+                  {title:'年龄',end:usr.age,router:'ModifyInfo',type:'age'},
+                  {title:'手机号',end:usr.phoneNumber,router:'ModifyInfo',type:'phoneNumber'},
+                  {title:'修改密码',end:null,router:'ModifyInfo',type:'password'}] },
+          ],
+          user:usr, });
     });
     
   }
@@ -76,9 +81,20 @@ export default class Information extends Component {
   }
 
   cellClick(item, index, section) {
-    console.log(item,index);
-    
-    Toast.show(`点击${index}${section.index}`,1)
+    this.props.navigation.navigate(item.router,{
+      item:item,
+      callback: (value) => {
+          let obj = this.state.data[section.index].data[index]
+          if (obj.type != 'password') {
+              obj.end = value
+              this.setState({data:[...this.state.data]})
+          }
+          this.state.user[obj.type] = value
+          UserManage.update(this.state.user)
+          console.log(store);
+          // store.dispatch({type: USER_ACTION,userModel:this.state.user})
+      }
+    });
     
   }
 

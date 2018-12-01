@@ -116,3 +116,35 @@ export const requestCollectVideo = data => {
         .then(res => res.data)
 }
 
+/**
+ * 用户头像上传
+ * @param      {<type>}  data    The data
+ * @return     {<type>}  { description_of_the_return_value }
+ */
+export const requestUpdateUserImage = data => {
+    return request({
+            url: `file/updateImage`,
+            method: 'post',
+            data: qs.stringify({
+                ...data
+            })
+        })
+        .then(res => res.data);
+};
+
+/**
+ * 修改个人信息
+ *
+ * @param      {<type>}  data    The data
+ * @return     {<type>}  { description_of_the_return_value }
+ */
+export const requestModifyInfo = data => {
+    return request({
+            url: `user/modifyInfo`,
+            method: 'post',
+            data: qs.stringify({
+                ...data
+            })
+        })
+        .then(res => res.data)
+}
