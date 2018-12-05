@@ -1,8 +1,8 @@
 'use strict'
-
+//https://xxxserver.herokuapp.com/
 const config = {
     api:{
-        base:'https://xxxserver.herokuapp.com/',
+        base:'http://xxxserver.herokuapp.com/',
     },
     map:{
         headers: {

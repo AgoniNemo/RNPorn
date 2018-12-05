@@ -138,11 +138,12 @@ export const CollectVideoAction = (params,{Callback,err}) => {
  * @param      {<type>}    accountData  The account data
  * @return     {Promise}   { description_of_the_return_value }
  */
-export const updateUserHeaderAction = (formData,{Callback,err}) => {
+export const UpdateUserHeaderAction = (formData,{Callback,err}) => {
     return UserManage.get().then(usr => {
         formData.append('user', usr.user);
-        formData.append('token', usr.token);
-        formData.append('name', usr.name + Date.parse(new Date()));
+        formData.append('token',usr.token);
+        formData.append('name', `${usr.name}${parseInt(Date.now() / 1000)}`);
+        console.log(formData);
         requestUpdateUserImage(formData).then(res => {
             Callback(res)
         }).catch(e => {

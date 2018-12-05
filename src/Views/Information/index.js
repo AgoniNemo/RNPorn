@@ -1,10 +1,11 @@
 import React, {Component} from 'react';
 import {Platform, StyleSheet, Text, View,Image,SectionList,TouchableOpacity} from 'react-native';
-import {Toast,Modal} from 'antd-mobile-rn';
+import {Toast,ActionSheet} from 'antd-mobile-rn';
 import { SCREEN , Color} from 'components/Public';
 import UserManage from 'lib/UserManage';
 import { USER_ACTION } from 'reduxs/action';
-import store from 'reduxs/store/store';
+import { UpdateUserHeaderAction } from 'src/utils/HttpHandler';
+import ImagePicker from 'react-native-image-crop-picker';
 
 export default class Information extends Component {
 
@@ -35,7 +36,7 @@ export default class Information extends Component {
         this.setState({ 
           icon: (usr.headPath.length == 0)? require('assets/image/header.jpg') : {uri:usr.headPath},
           data: [
-              { index: 0, data: [{title:'头像'}]},
+              { index: 0, data: [{title:'头像',type:'image'}]},
               { index: 1, data: [
                   {title:'昵称',end:usr.name,router:'ModifyInfo',type:'name'},
                   {title:'性别',end:usr.sex,router:'SettingSex',type:'sex'},
@@ -81,6 +82,12 @@ export default class Information extends Component {
   }
 
   cellClick(item, index, section) {
+
+    if (item.type == 'image') {
+      this.headerClick(item, index, section);
+      return
+    }
+
     this.props.navigation.navigate(item.router,{
       item:item,
       callback: (value) => {
@@ -91,11 +98,95 @@ export default class Information extends Component {
           }
           this.state.user[obj.type] = value
           UserManage.update(this.state.user)
-          console.log(store);
+          console.log(this.store);
+
           // store.dispatch({type: USER_ACTION,userModel:this.state.user})
       }
     });
     
+  }
+
+  headerClick(item, index, section) {
+    const BUTTONS = ['拍照', '从手机相册选择', '保存图片', '取消'];
+    ActionSheet.showActionSheetWithOptions({
+      options: BUTTONS,
+      cancelButtonIndex: BUTTONS.length - 1,
+      maskClosable: true,
+    },
+    (buttonIndex) => {
+      switch (buttonIndex) {
+        case 0:
+          this.openCamera()
+          break;
+        case 1:
+          this.openImageSource()
+          break;
+        case 2:
+          this.savaImage()
+          break;
+        default:
+          break;
+      }
+    });
+  }
+
+  savaImage() {
+    Toast.show('图片保存成功',2)
+  }
+
+  openCamera(){
+    ImagePicker.openCamera({
+      width: 400,
+      height: 400,
+      cropping: true
+    }).then(image => {
+      console.log(image);
+      this.updateLoading(image)
+    });
+  }
+
+  openImageSource() {
+    ImagePicker.openPicker({
+      width: 400,
+      height: 400,
+      cropping: true
+    }).then(image => {
+      console.log(image);
+      this.updateLoading(image)
+    });
+  }
+
+  updateLoading(image) {
+    let formData = new FormData();
+    let file = {
+      uri: (Platform.OS == "ios") ? image.sourceURL:image.path, 
+      type: 'multipart/form-data',
+      name: (Platform.OS == "ios") ? image.filename:`${parseInt(Date.now() / 1000)}`,
+      mime: image.mime,
+      size: image.size,}
+    formData.append("file", file);
+    Toast.loading('图片上传中...',0,(()=>{}),true)
+    UpdateUserHeaderAction(formData,{
+      Callback:(res) => {
+        console.log(res);
+        Toast.hide()
+        if (res.code == '0') {
+            let msg = '成功'
+            if (res.data.status) {
+                this.setState({icon:{uri:res.data.url}})
+            }else{
+                msg = '失败'
+            }
+            Toast.show(`图片上传${msg}！`,1)
+        }else{
+          Toast.show(`图片上传失败！原因：${res.message}`,1.5)
+        }
+      },
+      err:(err) =>{
+        Toast.hide()
+        Toast.show('网络出错！',1)
+      }
+    })
   }
 
 }

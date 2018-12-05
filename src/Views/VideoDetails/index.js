@@ -447,7 +447,7 @@ export default class VideoDetails extends Component {
           Toast.hide()
           if (res.code == '0') {
                 let list = this.state.data
-                list.push({
+                list.unshift({
                   content: msg,
                   headPath: this.state.user.headPath,
                   name: this.state.user.name,

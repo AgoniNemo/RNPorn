@@ -100,6 +100,7 @@ android {
         applicationId "com.rnporn"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
+        vectorDrawables.useSupportLibrary = true
         versionCode 1
         versionName "1.0"
        ndk {
@@ -142,7 +143,7 @@ android {
             }
         }
     }
-    buildToolsVersion '23.0.3'
+    buildToolsVersion "27.0.3"
 
     defaultConfig {
         // Add these lines below the existing config
@@ -153,6 +154,7 @@ android {
 }
 
 dependencies {
+    compile project(':react-native-image-crop-picker')
     compile project(':react-native-orientation')
     compile project(':react-native-video')
     compile project(':react-native-svg')

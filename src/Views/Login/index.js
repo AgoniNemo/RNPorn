@@ -26,7 +26,7 @@ class Login extends Component{
   componentDidMount() {
       UserManage.get().then(user => {
         if (user) {
-          this.loginClick()
+            this.loginClick()
         }
       })
   }
@@ -44,6 +44,8 @@ class Login extends Component{
   }
 
   loginAction() {
+    console.log('=====loginAction=====');
+    
     let param = {
       user: this.props.userModel.user,
       password: this.props.userModel.password

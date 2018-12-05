@@ -2,8 +2,16 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Porn将在您需要选择图片上传功能的操作中访问相册照片、保存照片</string>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>Porn将在您需要选择图片上传功能的操作中访问相册照片、保存照片</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>Porn将在您录制视频时，需要您开启麦克风权限</string>
+	<key>NSCameraUsageDescription</key>
+	<string>Porn将在您需要选择图片上传功能操作中使用相机拍照功能</string>
 	<key>CFBundleDevelopmentRegion</key>
-	<string>en</string>
+	<string>zh_CN</string>
 	<key>CFBundleDisplayName</key>
 	<string>RNPorn</string>
 	<key>CFBundleExecutable</key>

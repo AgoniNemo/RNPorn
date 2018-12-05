@@ -125,9 +125,7 @@ export const requestUpdateUserImage = data => {
     return request({
             url: `file/updateImage`,
             method: 'post',
-            data: qs.stringify({
-                ...data
-            })
+            data: data
         })
         .then(res => res.data);
 };

@@ -3,6 +3,7 @@ import {Platform, StyleSheet, Text, View,TouchableOpacity} from 'react-native';
 import {Toast,Modal} from 'antd-mobile-rn';
 import { SCREEN , Color} from 'components/Public';
 import UserManage from 'lib/UserManage';
+import { ModifyInfoAction } from 'src/utils/HttpHandler';
 
 export default class settingSex extends Component {
     
@@ -61,8 +62,28 @@ export default class settingSex extends Component {
         }
     }
 
-    _save() {
+    _save = () => {
         Toast.show('网络出错！',1)
+        let params = {
+            sex: this.state.sex
+        }
+        ModifyInfoAction(params,{
+            Callback:(res) => {
+              Toast.hide()
+              if (res.code == '0') {
+                  Toast.show(`用户信息修改成功！`,1)
+                  const {goBack,state} = this.props.navigation;
+                  state.params.callback(this.state.sex);
+                  goBack();
+              }else{
+                Toast.show(res.message,1)
+              }
+            },
+            err:(err) =>{
+              Toast.hide()
+              Toast.show('网络出错！',1)
+            }
+        })
     }
 
 }
