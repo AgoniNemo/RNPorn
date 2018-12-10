@@ -17,7 +17,6 @@ const service = axios.create({
  */
 service.interceptors.request.use(cfg => {
     cfg.headers['Accept'] = config.map.headers.Accept || null
-    console.log(cfg);
     return cfg
 }, error => {
     console.log(error) // 打印测试

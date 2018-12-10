@@ -11,7 +11,7 @@ export default class Mine extends Component {
     super(props)
     this.state={
       data:[
-        {text:'我的收藏',router:'Information',key:0},
+        {text:'我的收藏',router:'Collect',key:0},
         {text:'观看历史',router:'Information',key:1},
         {text:'个人信息',router:'Information',key:2}
       ]
@@ -47,7 +47,8 @@ export default class Mine extends Component {
   }
 
   cellClick(item) {
-    this.props.navigation.navigate(item.router);
+    const { user } = this.props.navigation.state.params;
+    this.props.navigation.navigate(item.router,{user:user});
   }
 
   createHearder(item,index,headPath) {

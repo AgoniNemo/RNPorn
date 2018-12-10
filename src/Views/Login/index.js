@@ -43,9 +43,7 @@ class Login extends Component{
     this.loginAction()
   }
 
-  loginAction() {
-    console.log('=====loginAction=====');
-    
+  loginAction() {    
     let param = {
       user: this.props.userModel.user,
       password: this.props.userModel.password

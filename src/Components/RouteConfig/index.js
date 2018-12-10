@@ -6,6 +6,8 @@ import ClassificationList from 'views/Classification/ClassificationList';
 import Information from 'views/Information/index';
 import ModifyInfo from 'views/ModifyInfo/index';
 import SettingSex from 'views/ModifyInfo/settingSex';
+import Collect from 'views/Mine/Collect';
+
 
 /*
     --- 路由配置 ---
@@ -53,6 +55,10 @@ const RouteConfig = {
         screen: SettingSex,
         navigationOptions: ({navigation}) => ({title: '修改性别',gesturesEnable: true})
     },
+    Collect: {
+        screen: Collect,
+        navigationOptions: ({navigation}) => ({title: '个人收藏',gesturesEnable: true})
+    }
 }
 
 export default RouteConfig;
