@@ -5,7 +5,7 @@ import {Modal,Toast} from 'antd-mobile-rn';
 import CardCell from './CardCell'
 import { SCREEN,Color } from 'components/Public';
 
-export default class Collect extends Component {
+export default class History extends Component {
 
   constructor(props){
     super(props)
@@ -63,7 +63,7 @@ export default class Collect extends Component {
       <CardCell 
       cellClick={(item) => this.cellClick(item)}
       btnCall={(item) => this.btnAction(item)}
-      item={item} isCollect={true} 
+      item={item} isCollect={false} 
       isShow={this.state.user.authority !== '1000'}/>
     );
   }
@@ -77,7 +77,7 @@ export default class Collect extends Component {
   }
 
   btnAction(item) {
-    const alertInstance = Modal.alert('提示', '是否取消收藏', [
+    const alertInstance = Modal.alert('提示', '是否删除历史', [
       { text: '取消', onPress: () => console.log('cancel'), style: 'default' },
       { text: '确定', onPress: () => {
           this.certainAction(item)

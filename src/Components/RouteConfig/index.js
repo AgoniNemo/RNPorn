@@ -7,6 +7,7 @@ import Information from 'views/Information/index';
 import ModifyInfo from 'views/ModifyInfo/index';
 import SettingSex from 'views/ModifyInfo/settingSex';
 import Collect from 'views/Mine/Collect';
+import History from 'views/Mine/History';
 
 
 /*
@@ -58,7 +59,11 @@ const RouteConfig = {
     Collect: {
         screen: Collect,
         navigationOptions: ({navigation}) => ({title: '个人收藏',gesturesEnable: true})
-    }
+    },
+    History: {
+        screen: History,
+        navigationOptions: ({navigation}) => ({title: '观看历史',gesturesEnable: true})
+    },
 }
 
 export default RouteConfig;

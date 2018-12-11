@@ -12,7 +12,7 @@ export default class Mine extends Component {
     this.state={
       data:[
         {text:'我的收藏',router:'Collect',key:0},
-        {text:'观看历史',router:'Information',key:1},
+        {text:'观看历史',router:'History',key:1},
         {text:'个人信息',router:'Information',key:2}
       ]
     }
