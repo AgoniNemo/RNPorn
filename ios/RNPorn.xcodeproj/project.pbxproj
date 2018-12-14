@@ -48,6 +48,20 @@
 		BA3D6C0E21B3DC2A00F5CCDB /* QBImagePicker.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BA3D6C0D21B3DC2A00F5CCDB /* QBImagePicker.framework */; };
 		BA3D6C0F21B3DC2A00F5CCDB /* QBImagePicker.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = BA3D6C0D21B3DC2A00F5CCDB /* QBImagePicker.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		BA3D6C4F21B3DE9B00F5CCDB /* ImageCropPickerSDK in Resources */ = {isa = PBXBuildFile; fileRef = BA3D6C2321B3DE9A00F5CCDB /* ImageCropPickerSDK */; };
+		BA82773921C228E100540D0B /* DBManagerModule.m in Sources */ = {isa = PBXBuildFile; fileRef = BA82773821C228E100540D0B /* DBManagerModule.m */; };
+		BA82773A21C228E100540D0B /* DBManagerModule.m in Sources */ = {isa = PBXBuildFile; fileRef = BA82773821C228E100540D0B /* DBManagerModule.m */; };
+		BA82773B21C228E100540D0B /* DBManagerModule.m in Sources */ = {isa = PBXBuildFile; fileRef = BA82773821C228E100540D0B /* DBManagerModule.m */; };
+		BA82773C21C228E100540D0B /* DBManagerModule.m in Sources */ = {isa = PBXBuildFile; fileRef = BA82773821C228E100540D0B /* DBManagerModule.m */; };
+		BA99A9FB21C105E6003CD35D /* FMDatabaseQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = BA99A9F021C105E6003CD35D /* FMDatabaseQueue.m */; };
+		BA99A9FC21C105E6003CD35D /* FMDatabaseAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = BA99A9F321C105E6003CD35D /* FMDatabaseAdditions.m */; };
+		BA99A9FD21C105E6003CD35D /* FMDatabase.m in Sources */ = {isa = PBXBuildFile; fileRef = BA99A9F421C105E6003CD35D /* FMDatabase.m */; };
+		BA99A9FE21C105E6003CD35D /* FMDatabasePool.m in Sources */ = {isa = PBXBuildFile; fileRef = BA99A9F821C105E6003CD35D /* FMDatabasePool.m */; };
+		BA99A9FF21C105E6003CD35D /* FMResultSet.m in Sources */ = {isa = PBXBuildFile; fileRef = BA99A9F921C105E6003CD35D /* FMResultSet.m */; };
+		BA99AA0521C10612003CD35D /* RootDataBaseManager.m in Sources */ = {isa = PBXBuildFile; fileRef = BA99AA0321C10612003CD35D /* RootDataBaseManager.m */; };
+		BA99AA0821C1064F003CD35D /* DBHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = BA99AA0721C1064F003CD35D /* DBHelper.m */; };
+		BA99AA0921C1064F003CD35D /* DBHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = BA99AA0721C1064F003CD35D /* DBHelper.m */; };
+		BA99AA0A21C1064F003CD35D /* DBHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = BA99AA0721C1064F003CD35D /* DBHelper.m */; };
+		BA99AA0B21C1064F003CD35D /* DBHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = BA99AA0721C1064F003CD35D /* DBHelper.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -419,6 +433,23 @@
 		BA3D6C0A21B3DC2A00F5CCDB /* RSKImageCropper.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = RSKImageCropper.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BA3D6C0D21B3DC2A00F5CCDB /* QBImagePicker.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = QBImagePicker.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BA3D6C2321B3DE9A00F5CCDB /* ImageCropPickerSDK */ = {isa = PBXFileReference; lastKnownFileType = folder; name = ImageCropPickerSDK; path = "../node_modules/react-native-image-crop-picker/ios/ImageCropPickerSDK"; sourceTree = "<group>"; };
+		BA82773721C228E100540D0B /* DBManagerModule.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DBManagerModule.h; sourceTree = "<group>"; };
+		BA82773821C228E100540D0B /* DBManagerModule.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DBManagerModule.m; sourceTree = "<group>"; };
+		BA99A9EF21C105E6003CD35D /* FMDatabase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDatabase.h; sourceTree = "<group>"; };
+		BA99A9F021C105E6003CD35D /* FMDatabaseQueue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMDatabaseQueue.m; sourceTree = "<group>"; };
+		BA99A9F121C105E6003CD35D /* FMResultSet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMResultSet.h; sourceTree = "<group>"; };
+		BA99A9F221C105E6003CD35D /* FMDatabasePool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDatabasePool.h; sourceTree = "<group>"; };
+		BA99A9F321C105E6003CD35D /* FMDatabaseAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMDatabaseAdditions.m; sourceTree = "<group>"; };
+		BA99A9F421C105E6003CD35D /* FMDatabase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMDatabase.m; sourceTree = "<group>"; };
+		BA99A9F521C105E6003CD35D /* FMDatabaseQueue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDatabaseQueue.h; sourceTree = "<group>"; };
+		BA99A9F621C105E6003CD35D /* FMDB.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDB.h; sourceTree = "<group>"; };
+		BA99A9F721C105E6003CD35D /* FMDatabaseAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDatabaseAdditions.h; sourceTree = "<group>"; };
+		BA99A9F821C105E6003CD35D /* FMDatabasePool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMDatabasePool.m; sourceTree = "<group>"; };
+		BA99A9F921C105E6003CD35D /* FMResultSet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMResultSet.m; sourceTree = "<group>"; };
+		BA99AA0321C10612003CD35D /* RootDataBaseManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RootDataBaseManager.m; sourceTree = "<group>"; };
+		BA99AA0421C10612003CD35D /* RootDataBaseManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RootDataBaseManager.h; sourceTree = "<group>"; };
+		BA99AA0621C1064F003CD35D /* DBHelper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DBHelper.h; sourceTree = "<group>"; };
+		BA99AA0721C1064F003CD35D /* DBHelper.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DBHelper.m; sourceTree = "<group>"; };
 		BFE377DF8BC246E1AC4C2FE3 /* RCTOrientation.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RCTOrientation.xcodeproj; path = "../node_modules/react-native-orientation/iOS/RCTOrientation.xcodeproj"; sourceTree = "<group>"; };
 		D3D4140FADFA4AAF9E44E8DE /* libRCTVideo.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRCTVideo.a; sourceTree = "<group>"; };
 		DB7F5D30C7974107A6B82856 /* RNSVG.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNSVG.xcodeproj; path = "../node_modules/react-native-svg/ios/RNSVG.xcodeproj"; sourceTree = "<group>"; };
@@ -569,6 +600,8 @@
 		13B07FAE1A68108700A75B9A /* RNPorn */ = {
 			isa = PBXGroup;
 			children = (
+				BA99AA0121C10612003CD35D /* Components */,
+				BA99A9ED21C105E6003CD35D /* Library */,
 				008F07F21AC5B25A0029DE68 /* main.jsbundle */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.m */,
@@ -744,6 +777,69 @@
 				BA4183F521AD2F7100B1D627 /* libRCTOrientation.a */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		BA82773521C228A500540D0B /* RNModule */ = {
+			isa = PBXGroup;
+			children = (
+				BA82773621C228CC00540D0B /* DBManagerModule */,
+			);
+			path = RNModule;
+			sourceTree = "<group>";
+		};
+		BA82773621C228CC00540D0B /* DBManagerModule */ = {
+			isa = PBXGroup;
+			children = (
+				BA82773721C228E100540D0B /* DBManagerModule.h */,
+				BA82773821C228E100540D0B /* DBManagerModule.m */,
+			);
+			path = DBManagerModule;
+			sourceTree = "<group>";
+		};
+		BA99A9ED21C105E6003CD35D /* Library */ = {
+			isa = PBXGroup;
+			children = (
+				BA99A9EE21C105E6003CD35D /* fmdb */,
+			);
+			path = Library;
+			sourceTree = "<group>";
+		};
+		BA99A9EE21C105E6003CD35D /* fmdb */ = {
+			isa = PBXGroup;
+			children = (
+				BA99A9EF21C105E6003CD35D /* FMDatabase.h */,
+				BA99A9F021C105E6003CD35D /* FMDatabaseQueue.m */,
+				BA99A9F121C105E6003CD35D /* FMResultSet.h */,
+				BA99A9F221C105E6003CD35D /* FMDatabasePool.h */,
+				BA99A9F321C105E6003CD35D /* FMDatabaseAdditions.m */,
+				BA99A9F421C105E6003CD35D /* FMDatabase.m */,
+				BA99A9F521C105E6003CD35D /* FMDatabaseQueue.h */,
+				BA99A9F621C105E6003CD35D /* FMDB.h */,
+				BA99A9F721C105E6003CD35D /* FMDatabaseAdditions.h */,
+				BA99A9F821C105E6003CD35D /* FMDatabasePool.m */,
+				BA99A9F921C105E6003CD35D /* FMResultSet.m */,
+			);
+			path = fmdb;
+			sourceTree = "<group>";
+		};
+		BA99AA0121C10612003CD35D /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				BA82773521C228A500540D0B /* RNModule */,
+				BA99AA0221C10612003CD35D /* DB */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
+		BA99AA0221C10612003CD35D /* DB */ = {
+			isa = PBXGroup;
+			children = (
+				BA99AA0321C10612003CD35D /* RootDataBaseManager.m */,
+				BA99AA0421C10612003CD35D /* RootDataBaseManager.h */,
+				BA99AA0621C1064F003CD35D /* DBHelper.h */,
+				BA99AA0721C1064F003CD35D /* DBHelper.m */,
+			);
+			path = DB;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1309,6 +1405,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				00E356F31AD99517003FC87E /* RNPornTests.m in Sources */,
+				BA82773A21C228E100540D0B /* DBManagerModule.m in Sources */,
+				BA99AA0921C1064F003CD35D /* DBHelper.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1317,7 +1415,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */,
+				BA82773921C228E100540D0B /* DBManagerModule.m in Sources */,
+				BA99A9FB21C105E6003CD35D /* FMDatabaseQueue.m in Sources */,
 				13B07FC11A68108700A75B9A /* main.m in Sources */,
+				BA99A9FD21C105E6003CD35D /* FMDatabase.m in Sources */,
+				BA99AA0521C10612003CD35D /* RootDataBaseManager.m in Sources */,
+				BA99A9FE21C105E6003CD35D /* FMDatabasePool.m in Sources */,
+				BA99A9FF21C105E6003CD35D /* FMResultSet.m in Sources */,
+				BA99A9FC21C105E6003CD35D /* FMDatabaseAdditions.m in Sources */,
+				BA99AA0821C1064F003CD35D /* DBHelper.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1327,6 +1433,8 @@
 			files = (
 				2D02E4BF1E0B4AB3006451C7 /* main.m in Sources */,
 				2D02E4BC1E0B4A80006451C7 /* AppDelegate.m in Sources */,
+				BA99AA0A21C1064F003CD35D /* DBHelper.m in Sources */,
+				BA82773B21C228E100540D0B /* DBManagerModule.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1335,6 +1443,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				2DCD954D1E0B4F2C00145EB5 /* RNPornTests.m in Sources */,
+				BA82773C21C228E100540D0B /* DBManagerModule.m in Sources */,
+				BA99AA0B21C1064F003CD35D /* DBHelper.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

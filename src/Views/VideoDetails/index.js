@@ -9,6 +9,7 @@ import { SCREEN,Color } from 'components/Public';
 import NavigationBar from 'components/NavigationBar';
 import FlatList from 'components/TableList';
 import ReplyCell from './ReplyCell';
+import DBManager from 'lib/DBManager';
 import UserManage from 'lib/UserManage';
 import { CommentListAction,CollectVideoAction,CommentVideoAction } from 'src/utils/HttpHandler';
 
@@ -191,6 +192,7 @@ export default class VideoDetails extends Component {
       setTimeout(() => {
         this.fetchDataList(0)
       }, 300);
+      DBManager.addHistoryData(item);
     }
 
     // shouldComponentUpdate(nextProps, nextState){

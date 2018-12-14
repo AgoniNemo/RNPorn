@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import DBManager from 'lib/DBManager';
 import { connect } from 'react-redux';
 import LaunchView from 'views/LaunchView/index';
 import { USER_ACTION } from 'reduxs/action';
@@ -11,6 +12,7 @@ class Root extends Component {
     UserManage.get().then(usr => {
         this.props.changeUser(usr)
     });
+    DBManager.createDB();
   }
 
   render() {
