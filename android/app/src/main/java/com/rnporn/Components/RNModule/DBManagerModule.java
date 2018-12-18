@@ -7,10 +7,11 @@ import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactContext;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactMethod;
+import com.facebook.react.bridge.WritableArray;
 import com.rnporn.Components.DB.DBHelper;
 import com.facebook.react.bridge.ReadableArray;
-
-import java.util.Dictionary;
+import com.facebook.react.bridge.ReadableMap;
+import com.facebook.react.bridge.Callback;
 
 public class DBManagerModule extends ReactContextBaseJavaModule {
 
@@ -27,11 +28,8 @@ public class DBManagerModule extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
-    public void addData(Dictionary studentName, String tableName) {
-//        DBHelper dbManager = new DBHelper(mReactContext);
-//        if (!dbManager.isStudentExists(studentName)) {
-//            dbManager.saveStudent(studentName, schoolName, className);
-//        }
+    public void addData(ReadableMap map, String tableName) {
+        DBHelper.getInstance().add(tableName,map);
     }
 
     @ReactMethod
@@ -39,8 +37,16 @@ public class DBManagerModule extends ReactContextBaseJavaModule {
         DBHelper dbManager =  DBHelper.getInstance();
         dbManager.rnReactContext = mReactContext;
         dbManager.createDB(name,params);
-        System.out.print("数据库表名：");
-        System.out.println(name);
-        Log.v("问题","这是");
+    }
+
+    @ReactMethod
+    public void getAllDataTableName(String name,Callback callback) {
+        callback.invoke(DBHelper.getInstance().getAllData(name));
+    }
+
+    @ReactMethod
+    public void deleteSingleDataTableName(String name, String condition,Callback callback) {
+        DBHelper.getInstance().deleteSingleData(name,condition);
+        callback.invoke(true);
     }
 }
