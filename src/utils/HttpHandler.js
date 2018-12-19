@@ -1,7 +1,7 @@
 import { requestVideoList, requestCategoriesList,
          requestCommentList,requestCollectVideo,
          requestCommentVideo,requestModifyInfo,
-         requestUpdateUserImage } from 'src/Api';
+         requestUpdateUserImage,requestCollectVideoList } from 'src/Api';
 import UserManage from 'lib/UserManage';
 
 
@@ -129,6 +129,29 @@ export const CollectVideoAction = (params,{Callback,err}) => {
     });
 }
 
+/**
+ * 用户收藏列表
+ *
+ * @class      CollectVideoListAction (name)
+ * @param      {Object}    arg1         The argument 1
+ * @param      {Function}  arg1.commit  The commit
+ * @param      {<type>}    accountData  The account data
+ * @return     {Promise}   { description_of_the_return_value }
+ */
+export const CollectVideoListAction = ({Callback,err}) => {
+    return UserManage.get().then(usr => {
+        const p = {
+            user:usr.user,
+            token:usr.token,
+        }
+        requestCollectVideoList(p).then(res => {
+            Callback(res)
+        }).catch(e => {
+            console.log(e)
+            err(e)
+        })
+    });
+}
 /**
  * 用户头像上传
  *

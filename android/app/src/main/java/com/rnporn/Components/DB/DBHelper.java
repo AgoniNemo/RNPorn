@@ -47,9 +47,31 @@ public class DBHelper {
         return result;
     }
 
+    public boolean batchAdd(String name,ReadableArray array) {
+        return this.dbHelper.batchInsertData(name,array);
+    }
+
+
+    public WritableArray getSingleData(String name,String key,String value) {
+        Cursor cursor = this.dbHelper.getSingleData(name,key,value);
+        return this.dataHandle(cursor);
+    }
+
     public WritableArray getAllData(String name) {
-        WritableArray array = Arguments.createArray();
         Cursor cursor =  this.dbHelper.getAllData(name);
+        return this.dataHandle(cursor);
+    }
+
+    public void deleteSingleData(String name,String condition) {
+        this.dbHelper.deleteData(name,condition);
+    }
+
+    public void deleteAllData(String name) {
+        this.dbHelper.deleteAllData(name);
+    }
+
+    private WritableArray dataHandle(Cursor cursor) {
+        WritableArray array = Arguments.createArray();
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
             WritableMap map = Arguments.createMap();
@@ -61,11 +83,8 @@ public class DBHelper {
             array.pushMap(map);
             cursor.moveToNext();
         }
+        System.out.println("查询到的数组:"+array);
         return array;
-    }
-
-    public void deleteSingleData(String name,String condition) {
-        this.dbHelper.deleteData(name,condition);
     }
 
 }

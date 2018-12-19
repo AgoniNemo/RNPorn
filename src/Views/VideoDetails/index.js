@@ -21,10 +21,9 @@ export default class VideoDetails extends Component {
             refreshing:false,
             status:false, //默认为 不收藏
             page:0,
+            video:null,
             videoId:null,
             user:null,  // 用户对象
-            videoUrl: null,
-            videoCover: null,
             videoWidth: SCREEN.width,
             videoHeight:  SCREEN.width * 9/16, // 默认16：9的宽高比
             showVideoCover: true,    // 是否显示视频封面
@@ -34,7 +33,6 @@ export default class VideoDetails extends Component {
             duration: 0,           // 视频的总时长
             isFullScreen: false,     // 当前是否全屏显示
             playFromBeginning: false, // 是否从头开始播放
-            title:null,
             isLoading:false,
             isShow:true,
           };
@@ -47,7 +45,7 @@ export default class VideoDetails extends Component {
             backgroundColor:'#000000' }}>
             <Video
               ref={(ref) => this.videoPlayer = ref}
-              source={this.state.isShow? {uri: this.state.videoUrl}:require('assets/video/dzs.mp4')}
+              source={this.state.isShow? {uri: this.state.video.playPath}:require('assets/video/dzs.mp4')}
               rate={1.0}
               volume={1.0}
               muted={false}
@@ -76,7 +74,7 @@ export default class VideoDetails extends Component {
                     height: this.state.videoHeight
                   }}
                   resizeMode={'cover'}
-                  source={this.state.isShow? {uri: this.state.videoCover}:require('assets/image/back.png')}
+                  source={this.state.isShow? {uri: this.state.video.icon}:require('assets/image/back.png')}
                 /> : null
             }
             <TouchableWithoutFeedback onPress={() => { this.hideControl() }}>
@@ -152,7 +150,7 @@ export default class VideoDetails extends Component {
             this.state.isFullScreen ? null :
             <View style={styles.bottomContainer}>
                 <View style={{flex:1}}>
-                    <Text style={styles.title}>{`   ${this.state.isShow?this.state.title:'这是影片标题'}`}</Text>
+                    <Text style={styles.title}>{`   ${this.state.isShow?this.state.video.title:'这是影片标题'}`}</Text>
                     <FlatList
                         data={this.state.data}
                         refreshing={this.state.refreshing}
@@ -180,10 +178,7 @@ export default class VideoDetails extends Component {
     componentWillMount() {
       const { item,isShow } = this.props.navigation.state.params;
       this.setState({
-          videoUrl:item.playPath,
-          videoCover:item.icon,
-          title:item.title,
-          videoId:item.videoId,
+          video:item,
           isShow:isShow,
       })
       UserManage.get().then(usr => {
@@ -192,7 +187,18 @@ export default class VideoDetails extends Component {
       setTimeout(() => {
         this.fetchDataList(0)
       }, 300);
-      DBManager.addHistoryData(item);
+
+      DBManager.historyIsDataExists(item.videoId,((res) => {
+          if (res) {
+              this.setState({status:true});
+              DBManager.delHistoryData(item.videoId,null)
+          }
+          let video = {
+            ...item,
+            video_updated_at:`${parseInt(Date.now() / 1000)}`,
+          }
+          DBManager.addHistoryData(item);
+      }));
     }
 
     // shouldComponentUpdate(nextProps, nextState){
@@ -380,7 +386,7 @@ export default class VideoDetails extends Component {
     fetchDataList(page) {
       this.setState({refreshing:true})
       let param = {
-         id:this.state.videoId,
+         id:this.state.video.videoId,
          count:20,
          page:page,
       }
@@ -439,25 +445,25 @@ export default class VideoDetails extends Component {
     onsubmmit(msg) {
       let t = `${parseInt(Date.now() / 1000)}`
       let params = {
-        id:this.state.videoId,
+        id:this.state.video.videoId,
         content:msg,
         time:t
       }
-      
       CommentVideoAction(params,{
         Callback:(res) => {
           Toast.hide()
           if (res.code == '0') {
-                let list = this.state.data
-                list.unshift({
+                let comment = {
                   content: msg,
                   headPath: this.state.user.headPath,
                   name: this.state.user.name,
                   sex: this.state.user.sex,
                   time: t,
-                  user: this.state.user.user})
-                
-                this.setState({data:[...list]})
+                  user: this.state.user.user};
+                const data = [...this.state.data];
+                data.unshift(comment);
+                this.setState({data});
+                console.log(this.state.data);
                 Toast.show('影片回复成功',2)
           }else{
               Toast.show(res.message,1)
@@ -472,7 +478,7 @@ export default class VideoDetails extends Component {
     requestCollectVideo() {
       let result = !this.state.status
       let params = {
-        id:this.state.videoId,
+        id:this.state.video.videoId,
         collection:result?'1':'0',
       }
       Toast.loading('加载中...',0,(()=>{}),true)
@@ -481,6 +487,16 @@ export default class VideoDetails extends Component {
           Toast.hide()
           if (res.code == '0') {
               this.setState({status:result})
+              if (result) {
+                  let video = {
+                    ...this.state.video,
+                    video_updated_at:`${parseInt(Date.now() / 1000)}`,
+                  }
+                  DBManager.addCollectData(video);
+              }else{
+                  DBManager.delCollectData(this.state.video.videoId,null);
+              }
+              
               Toast.show(`${result?'收藏':'取消收藏'}成功！`,2)
           }else{
             Toast.show(res.message,1)
@@ -500,7 +516,7 @@ export default class VideoDetails extends Component {
     }
 
     cellAction(item) {
-      Toast.success(item.videoId,1)
+      Toast.success(item.video.videoId,1)
     }
     
     /// -------外部调用事件方法-------
@@ -522,8 +538,10 @@ export default class VideoDetails extends Component {
     
     /// 切换视频并可以指定视频开始播放的时间，提供给外部调用
     switchVideo(videoURL, seekTime) {
+      let video = this.state.video;
+      video.playPath = videoURL;
       this.setState({
-        videoUrl: videoURL,
+        video: video,
         currentTime: seekTime,
         isPlaying: true,
         showVideoCover: false

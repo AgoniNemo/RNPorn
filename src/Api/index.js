@@ -117,6 +117,23 @@ export const requestCollectVideo = data => {
 }
 
 /**
+ * 用户收藏影片列表
+ *
+ * @param      {<type>}  data    The data
+ * @return     {<type>}  { description_of_the_return_value }
+ */
+export const requestCollectVideoList = data => {
+    return request({
+            url: `video/collectionList`,
+            method: 'post',
+            data: qs.stringify({
+                ...data
+            })
+        })
+        .then(res => res.data)
+}
+
+/**
  * 用户头像上传
  * @param      {<type>}  data    The data
  * @return     {<type>}  { description_of_the_return_value }

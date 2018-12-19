@@ -28,8 +28,13 @@ public class DBManagerModule extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
-    public void addData(ReadableMap map, String tableName) {
+    public void addDataTableName(String tableName,ReadableMap map) {
         DBHelper.getInstance().add(tableName,map);
+    }
+
+    @ReactMethod
+    public void addMoreDataTableName(String tableName,ReadableArray array,Callback callback) {
+        callback.invoke(DBHelper.getInstance().batchAdd(tableName,array));
     }
 
     @ReactMethod
@@ -45,8 +50,18 @@ public class DBManagerModule extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
+    public void getSingleDataTableName(String name,String key,String value,Callback callback) {
+        callback.invoke(DBHelper.getInstance().getSingleData(name,key,value));
+    }
+
+    @ReactMethod
     public void deleteSingleDataTableName(String name, String condition,Callback callback) {
         DBHelper.getInstance().deleteSingleData(name,condition);
         callback.invoke(true);
+    }
+
+    @ReactMethod
+    public void deleteAllDataTableName(String name) {
+        DBHelper.getInstance().deleteAllData(name);
     }
 }

@@ -22,12 +22,22 @@ RCT_EXPORT_METHOD(complyTableName:(NSString *)name SQL:(NSString *)sql res:(RCTR
   callback(@[result]);
 }
 
-RCT_EXPORT_METHOD(addData:(NSDictionary *)dict tableName:(NSString *)name){
+RCT_EXPORT_METHOD(addDataTableName:(NSString *)name dict:(NSDictionary *)dict ){
   [[DBHelper sharedInstance] addDataWithParam:dict table:name];
+}
+
+RCT_EXPORT_METHOD(addMoreDataTableName:(NSString *)name array:(NSArray *)array  callBack:(RCTResponseSenderBlock)callback){
+  BOOL b = [[DBHelper sharedInstance] addMoreDataWithParam:array table:name];
+  callback(@[[NSNumber numberWithBool:b]]);
 }
 
 RCT_EXPORT_METHOD(getAllDataTableName:(NSString *)name callBack:(RCTResponseSenderBlock)callback) {
   NSArray *datas = [[DBHelper sharedInstance] getAllDataWithTableName:name];
+  callback(@[datas]);
+}
+
+RCT_EXPORT_METHOD(getSingleDataTableName:(NSString *)name key:(NSString *)key value:(NSString *)value callBack:(RCTResponseSenderBlock)callback) {
+  NSArray *datas = [[DBHelper sharedInstance] getSingleDataWithTableName:name key:key value:value];
   callback(@[datas]);
 }
 

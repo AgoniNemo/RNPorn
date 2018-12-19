@@ -41,12 +41,17 @@ __strong static id _sharedObject;
 {
   return [self.dBManager getAllDataTableName:name order:@""];
 }
-
+-(NSArray *)getSingleDataWithTableName:(NSString *)name key:(NSString *)key value:(NSString *)value{
+  return [self.dBManager inquireDataWithDict:@{key:value} tableName:name];
+}
 -(void)addDataWithParam:(NSDictionary *)param table:(NSString *)name
 {
   [self.dBManager insertNewsData:param tableName:name];
 }
-
+-(BOOL)addMoreDataWithParam:(NSArray *)param table:(NSString *)name
+{
+  return [self.dBManager insertNewsDataWithArray:param tableName:name];
+}
 -(RootDataBaseManager *)dBManager
 {
   if (_dBManager == nil) {

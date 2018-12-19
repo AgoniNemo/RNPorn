@@ -287,7 +287,7 @@
     return dataArray;
 }
 -(NSArray *)inquireDataWithDict:(NSDictionary *)dict tableName:(NSString *)tableName{
-    
+     
     NSString *key = [[dict allKeys] firstObject];
     NSString * sql = [NSString stringWithFormat:@"select * from %@ where %@ = '%@'",tableName,key,dict[key]];
     __block NSMutableArray * dataArray = [[NSMutableArray alloc] init];

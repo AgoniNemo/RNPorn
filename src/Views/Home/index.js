@@ -12,8 +12,9 @@ import {Platform, StyleSheet, View} from 'react-native';
 import NavigationBar from 'components/NavigationBar';
 import {Toast} from 'antd-mobile-rn';
 import HomeCell from './HomeCell'
-import { VideoListAction } from 'src/utils/HttpHandler';
+import { VideoListAction,CollectVideoListAction } from 'src/utils/HttpHandler';
 import FlatList from 'components/TableList';
+import DBManager from 'lib/DBManager';
 
 export default class Home extends Component {
 
@@ -33,6 +34,7 @@ export default class Home extends Component {
     setTimeout(() => {
       this.fetchDataList(0)
     }, 300);
+    this.collectVideoSave();
   }
 
   render() {
@@ -111,6 +113,26 @@ export default class Home extends Component {
     });
   }
 
+  collectVideoSave() {
+    CollectVideoListAction({
+      Callback:(res) => {
+        if (res.code == '0') {
+           let data = res.data
+           if (data.length > 0) {
+              DBManager.delAllCollectData();
+              DBManager.addMoreCollect(data,((result) => {
+                console.log('保存结果:', result);
+              }))
+           }
+        }else{
+          console.log('出错！',res.message);
+        }
+      },
+      err:(err) =>{
+        console.log('网络出错！');
+      }
+    })
+  }
 }
 
 const styles = StyleSheet.create({

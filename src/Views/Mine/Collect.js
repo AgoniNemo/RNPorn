@@ -5,6 +5,7 @@ import {Modal,Toast} from 'antd-mobile-rn';
 import CardCell from './CardCell'
 import { SCREEN,Color } from 'components/Public';
 import DBManager from 'lib/DBManager';
+import { CollectVideoAction } from 'src/utils/HttpHandler';
 
 export default class Collect extends Component {
 
@@ -68,15 +69,34 @@ export default class Collect extends Component {
   }
 
   certainAction(item,index) {
-    DBManager.delCollectData(item.videoId,(res) => {
-      if (res) {
-        let list = this.state.data;
-        list.splice(index,1);
-        this.setState({
-          data: [...list],
-        })
+      let params = {
+        id:item.videoId,
+        collection:'0',
       }
-    })
+      Toast.loading('加载中...',0,(()=>{}),true)
+      CollectVideoAction(params,{
+        Callback:(res) => {
+          Toast.hide()
+          if (res.code == '0') {
+              DBManager.delCollectData(item.videoId,(res) => {
+                if (res) {
+                  let list = this.state.data;
+                  list.splice(index,1);
+                  this.setState({
+                    data: [...list],
+                  })
+                }
+              })
+              Toast.show(`取消收藏成功！`,2)
+          }else{
+            Toast.show(res.message,1)
+          }
+        },
+        err:(err) =>{
+          Toast.hide()
+          Toast.show('网络出错！',1)
+        }
+      })
   }
 
 }
