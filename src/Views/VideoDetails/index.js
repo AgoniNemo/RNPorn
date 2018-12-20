@@ -460,9 +460,9 @@ export default class VideoDetails extends Component {
                   sex: this.state.user.sex,
                   time: t,
                   user: this.state.user.user};
-                const data = [...this.state.data];
-                data.unshift(comment);
-                this.setState({data});
+                const list = [...this.state.data];
+                list.unshift(comment);
+                this.setState({data:[...list]});
                 console.log(this.state.data);
                 Toast.show('影片回复成功',2)
           }else{

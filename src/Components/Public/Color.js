@@ -6,5 +6,5 @@ export default {
     theme: 'rgb(201,39,143)',
     translucent:'rgba(0,0,0,0.7)',
     sectionBackgroundColor:'#efeff4',
-    themeColor:'#ffb4db',
+    themeColor:'rgba(255,154,207,1)',
 }

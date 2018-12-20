@@ -17,7 +17,8 @@ export default class CardCell extends Component {
         <TouchableOpacity
         activeOpacity = {0.5}
         onPress={() => this.click(this.props.item)}>
-            <View style={styles.container}>
+          <View style={styles.container}>
+            <View style={styles.cellContainer}>
                 <Image style={styles.imageStyle} source={this.props.isShow ? {uri:model.icon}: require('assets/image/header.jpg')} roundAsCircle={true}/>
                 <View style={styles.textContainer}>
                     <Text style={styles.title} numberOfLines={2} ellipsizeMode="tail">{this.props.isShow?model.title:'这是文字信息'}</Text>
@@ -34,6 +35,7 @@ export default class CardCell extends Component {
                     </View>
                 </View>
             </View>
+          </View>
       </TouchableOpacity>
     )
   }
@@ -56,8 +58,14 @@ let imageWidth = SCREEN.width*360/1080;
 let imageHeight = imageWidth*212/350;
 
 const styles = StyleSheet.create({
-
   container: {
+    flex:1,
+    backgroundColor:'#fff',
+    borderBottomWidth: 1,
+    borderStyle: 'solid',
+    borderBottomColor: '#eee',
+  },
+  cellContainer: {
     flex:1,
     flexDirection: 'row',
     marginTop:interval,
@@ -68,6 +76,7 @@ const styles = StyleSheet.create({
     width: imageWidth,
     height: imageHeight,
     borderRadius:3,
+    marginBottom:10,
   },
   textContainer: {
     flex:1,

@@ -1,7 +1,8 @@
 import React, {Component} from 'react';
-import {Platform, StyleSheet, Text, View,Image,Dimensions,TouchableOpacity} from 'react-native';
+import {Platform, StyleSheet, Text, View,
+    Image,Dimensions,TouchableOpacity,StatusBar} from 'react-native';
 import {BoxShadow} from 'react-native-shadow';
-import { SCREEN } from 'components/Public';
+import { SCREEN,Color } from 'components/Public';
 
 export default class NavigationBar extends Component {
 
@@ -15,17 +16,17 @@ export default class NavigationBar extends Component {
     render() {
         const shadowOpt = {
             width:this.state.navWidth,
-            height:44,
+            height:64,
             color:"#000",
             border:1,
-            opacity:0.2,
+            opacity:0.3,
             x:0,
             y:1,// 阴影height
             style: {
                 marginBottom: 3,
                 ...Platform.select({
                     ios: {
-                      marginTop: 20
+                      marginTop: 0
                     }
                 }),
             }
@@ -65,27 +66,29 @@ export default class NavigationBar extends Component {
         }
     }
 }
-
+let top = (44-23)/2 + 20;
 const styles = StyleSheet.create({
     container: {
       flex:1,
-      height: 44,
       flexDirection: 'row',
       justifyContent: 'center',
-      backgroundColor: '#fff',
+      backgroundColor: Color.themeColor,
     },
     title: {
+        marginTop: 20,
         height: 44,
         lineHeight:44,
+        fontSize:17,
+        color:'#fff',
     },
     leftImageContainer: {
         position:'absolute',
         left:10,
-        top:10.5,
+        top:top,
     },
     rightImageContainer: {
         position:'absolute',
         right:10,
-        top:10.5,
+        top:top,
     }
 });

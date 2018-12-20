@@ -1,10 +1,11 @@
 import React, {Component} from 'react';
 import { Toast } from 'antd-mobile-rn';
 import { createStackNavigator} from 'react-navigation';
-import { Easing,Animated,BackHandler } from 'react-native';
+import { Easing,Animated,BackHandler,Platform } from 'react-native';
 import RouteConfig from 'src/Components/RouteConfig/index';
 import TransitionConfiguration from './NavigatorAnimated';
 import Orientation from 'react-native-orientation';
+import { Color } from 'components/Public';
 
 let routes = [];
 let lastBackPressed = null;
@@ -44,6 +45,17 @@ export default class Navigation extends Component {
             initialRouteName: this.state.isLoggedIn ? 'MainTab':'Login',
             headerMode: 'screen',
             transitionConfig: TransitionConfiguration,
+            navigationOptions: {
+                headerStyle: {
+                  paddingTop: Platform.OS == 'ios'? 0 : 20,
+                  height: Platform.OS == 'ios'? 44 : 64,
+                  backgroundColor: Color.themeColor,
+                },
+                headerTintColor: '#fff',
+                headerTitleStyle: {
+                  fontWeight: 'bold',
+                },
+            }
         });
         return (
             <AppNavigator onNavigationStateChange={(prevNav, nav, action) => {
