@@ -44,10 +44,7 @@ export default class TableList extends Component {
         if (this.props.data === nextProps.data) {
             return false;
         }
-        if (this.props.refreshing === nextProps.refreshing) {
-            return false;
-        }
-        console.log("refreshing---组件需要更新");
+        console.log(nextProps.refreshing,"refreshing---组件需要更新",this.props.refreshing);
         return true;
     }
 

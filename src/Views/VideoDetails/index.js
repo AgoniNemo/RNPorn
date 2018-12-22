@@ -462,8 +462,7 @@ export default class VideoDetails extends Component {
                   user: this.state.user.user};
                 const list = [...this.state.data];
                 list.unshift(comment);
-                this.setState({data:[...list]});
-                console.log(this.state.data);
+                this.setState({data:list});
                 Toast.show('影片回复成功',2)
           }else{
               Toast.show(res.message,1)

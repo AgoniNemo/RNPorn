@@ -66,6 +66,9 @@ class Login extends Component{
         Toast.show(res.message,1)
       }
       Toast.hide()
+    }).catch(e => {
+      Toast.hide()
+      Toast.show('网络超时！',1)
     })
   }
 }
