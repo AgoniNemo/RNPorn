@@ -1,4 +1,16 @@
 
+### iOS与Android截图对比
+
+![1](https://raw.githubusercontent.com/AgoniNemo/RNPorn/master/image/WechatIMG116.jpeg)
+![2](https://raw.githubusercontent.com/AgoniNemo/RNPorn/master/image/WechatIMG117.jpeg)
+![3](https://raw.githubusercontent.com/AgoniNemo/RNPorn/master/image/WechatIMG118.jpeg)
+![4](https://raw.githubusercontent.com/AgoniNemo/RNPorn/master/image/WechatIMG119.jpeg)
+![5](https://raw.githubusercontent.com/AgoniNemo/RNPorn/master/image/WechatIMG120.jpeg)
+![6](https://raw.githubusercontent.com/AgoniNemo/RNPorn/master/image/WechatIMG121.jpeg)
+![7](https://raw.githubusercontent.com/AgoniNemo/RNPorn/master/image/WechatIMG122.jpeg)
+![8](https://raw.githubusercontent.com/AgoniNemo/RNPorn/master/image/WechatIMG123.jpeg)
+![9](https://raw.githubusercontent.com/AgoniNemo/RNPorn/master/image/WechatIMG124.jpeg)
+![10](https://raw.githubusercontent.com/AgoniNemo/RNPorn/master/image/WechatIMG125.jpeg)
 ## Android 打包
 
 ### 1.生成一个签名密钥
