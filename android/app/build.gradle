@@ -1,6 +1,7 @@
 apply plugin: "com.android.application"
 
 import com.android.build.OutputFile
+import groovy.json.JsonSlurper
 
 /**
  * The react.gradle file registers a task for each build variant (e.g. bundleDebugJsAndAssets
@@ -93,6 +94,15 @@ def enableSeparateBuildPerCPUArchitecture = false
  */
 def enableProguardInReleaseBuilds = true
 
+//获取配置文件的版本信息
+def getAppVersion() {
+    def inputFile = file("../../package.json")
+    def packageJson = new JsonSlurper().parseText(inputFile.text)
+    return packageJson["version"]
+}
+
+def appVersion = getAppVersion()
+
 android {
     compileSdkVersion rootProject.ext.compileSdkVersion
 
@@ -102,7 +112,7 @@ android {
         targetSdkVersion rootProject.ext.targetSdkVersion
         vectorDrawables.useSupportLibrary = true
         versionCode 1
-        versionName "1.0"
+        versionName appVersion
        ndk {
            abiFilters "armeabi-v7a", "x86"
        }
