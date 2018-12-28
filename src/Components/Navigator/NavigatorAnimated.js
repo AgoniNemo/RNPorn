@@ -1,4 +1,4 @@
-import { Easing,Animated,I18nManager } from 'react-native';
+import { Easing,Animated,I18nManager,Platform } from 'react-native';
 /*
 * 从上至下动画
 * */
@@ -158,8 +158,12 @@ const TransitionConfiguration = () => {
                     return forHorizontalLeft(sceneProps);
                 case 'forHorizontalRight':
                     return forHorizontalRight(sceneProps);
-                default:
+                default: {
+                    if (Platform.OS == 'ios') {
+                        return forHorizontalRight(sceneProps);
+                    }
                     return forFadeInAndFadeOut(sceneProps);
+                }
             }
         },
     };

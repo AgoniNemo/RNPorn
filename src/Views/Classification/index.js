@@ -50,7 +50,6 @@ export default class Classification extends Component {
 
   cellClick(item) {
     this.props.navigation.navigate('ClassificationList',{
-      transition: 'forHorizontalRight',
       item:item,
       isShow:(this.state.user.authority !== '1000'),
     });

@@ -287,6 +287,7 @@ export default class VideoDetails extends Component {
     backClick() {
       this.pauseVideo()
       Orientation.unlockAllOrientations();
+      Orientation.lockToPortrait();
       this.props.navigation.goBack();
     }
 
@@ -579,11 +580,13 @@ const styles = StyleSheet.create({
     goBack: {
       width: 24,
       height: 24,
+      marginTop:Platform.OS == 'ios'?0:20,
       marginLeft:10,
     },
     more: {
       width: 24,
       height: 24,
+      marginTop:Platform.OS == 'ios'?0:20,
       marginRight:10,
     },
     playControl: {
@@ -619,7 +622,7 @@ const styles = StyleSheet.create({
     topControl: {
       flexDirection: 'row',
       justifyContent:'space-between',
-      height: 44,
+      height: Platform.OS == 'ios'?44:54,
       alignItems:'center',
       backgroundColor: 'rgba(0, 0, 0, 0.8)',
       position: 'absolute',

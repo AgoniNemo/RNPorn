@@ -40,7 +40,8 @@ public class DBHelper {
 
         while (entries.hasNext()) {
             Map.Entry<String, Object> itme = entries.next();
-            value.put(itme.getKey(),itme.getValue().toString());
+            String values = (itme.getValue() == null) ? "" : itme.getValue().toString();
+            value.put(itme.getKey(),values);
         }
         long result =  this.dbHelper.insertData(name,value);
         System.out.println("结果 = " + result);

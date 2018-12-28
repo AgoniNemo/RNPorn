@@ -53,7 +53,6 @@ export default class Collect extends Component {
 
   cellClick(item) {
     this.props.navigation.navigate('VideoDetails',{
-      transition: 'forHorizontalRight',
       item:item,
       isShow:(this.state.user.authority !== '1000'),
     });

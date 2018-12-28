@@ -107,7 +107,6 @@ export default class Home extends Component {
   cellAction(item) {
     // Toast.success(item.videoId,1)
     this.props.navigation.navigate('VideoDetails',{
-        transition: 'forHorizontalRight',
         item:item,
         isShow:(this.state.user.authority !== '1000'),
     });
