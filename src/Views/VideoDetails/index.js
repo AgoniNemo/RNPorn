@@ -110,6 +110,7 @@ export default class VideoDetails extends Component {
                         source={require('assets/image/i_goback.png')}
                       />
                     </TouchableOpacity>
+                    { this.state.isFullScreen ? <Text style={styles.topTitle}>{`   ${this.state.isShow?this.state.video.title:'这是影片标题'}`}</Text> : null }
                     <TouchableOpacity activeOpacity={0.3} onPress={() => { this.noFunction() }}>
                       <Image
                         style={styles.more}
@@ -286,7 +287,6 @@ export default class VideoDetails extends Component {
     /// 返回
     backClick() {
       this.pauseVideo()
-      Orientation.unlockAllOrientations();
       Orientation.lockToPortrait();
       this.props.navigation.goBack();
     }
@@ -632,6 +632,12 @@ const styles = StyleSheet.create({
     bottomContainer: {
       flex:1,
       justifyContent:'space-between',
+    },
+    topTitle: {
+      marginTop:25,
+      marginBottom:3,
+      fontSize:15,
+      color:'#fff',
     },
     title: {
       marginTop:3,
