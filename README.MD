@@ -11,6 +11,7 @@
 ![8](https://raw.githubusercontent.com/AgoniNemo/RNPorn/master/image/WechatIMG123.jpeg)
 ![9](https://raw.githubusercontent.com/AgoniNemo/RNPorn/master/image/WechatIMG124.jpeg)
 ![10](https://raw.githubusercontent.com/AgoniNemo/RNPorn/master/image/WechatIMG125.jpeg)
+
 ## Android 打包
 
 ### 1.生成一个签名密钥
