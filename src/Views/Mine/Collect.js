@@ -55,6 +55,7 @@ export default class Collect extends Component {
     this.props.navigation.navigate('VideoDetails',{
       item:item,
       isShow:(this.state.user.authority !== '1000'),
+      transition:'forHorizontalRight',
     });
   }
 

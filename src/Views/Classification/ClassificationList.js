@@ -116,7 +116,8 @@ export default class ClassificationList extends Component {
   cellAction(item) {
     this.props.navigation.navigate('VideoDetails',{
         item:item,
-        isShow:this.state.isShow
+        isShow:this.state.isShow,
+        transition:'forHorizontalRight',
     });
   }
 
