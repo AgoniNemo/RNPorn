@@ -15,6 +15,7 @@ import HomeCell from './HomeCell'
 import { VideoListAction,CollectVideoListAction } from 'src/utils/HttpHandler';
 import FlatList from 'components/TableList';
 import DBManager from 'lib/DBManager';
+import PageManage from 'lib/PageManage';
 
 export default class Home extends Component {
 
@@ -24,6 +25,7 @@ export default class Home extends Component {
       data:[],
       refreshing: false,
       page:0,
+      initial:0,
       user:null,
     }
   }
@@ -31,9 +33,21 @@ export default class Home extends Component {
   componentWillMount() {
     const { user } = this.props.navigation.state.params;
     this.setState({user:user})
-    setTimeout(() => {
-      this.fetchDataList(0)
-    }, 300);
+    const than = this;
+    PageManage.get().then(page => {
+        let res = {
+          page:8,
+          total:22,
+          ...page
+        }
+        than.setState({page:res.page,initial:res.page});
+        than.fetchDataList(res.page)
+        res.page = res.page + 1;
+        if (res.page > res.total) {
+          res.page = 8;
+        }
+        PageManage.save(res);
+    });
     this.collectVideoSave();
   }
 
@@ -54,7 +68,7 @@ export default class Home extends Component {
 
   // 下拉刷新
   refreshAction() {
-    this.fetchDataList(0)
+    this.fetchDataList(this.state.initial)
   }
 
   // 上拉加载更多
@@ -66,7 +80,6 @@ export default class Home extends Component {
 
   fetchDataList(page) {
     this.setState({refreshing:true})
-    
     let param = {
        count:20,
        page:page,
@@ -78,13 +91,19 @@ export default class Home extends Component {
            let data = res.data.list
            if (data.length > 0) {
               let list = this.state.data;
-              if (page == 0) {
+              if (page == this.state.initial) {
                   list = data
               }else{
                   list = list.concat(data)
               }            
               this.setState({data:list,page:page,refreshing:false})
            }
+           PageManage.get().then(pg => {
+              if (pg.total != res.data.total) {
+                  pg.total = res.data.total;
+                  PageManage.save(pg);
+              }
+           });
         }else{
           Toast.show(res.message,1)
         }
