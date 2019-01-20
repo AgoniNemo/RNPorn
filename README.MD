@@ -65,13 +65,9 @@ react-native bundle --platform android --dev false --entry-file index.js  --bund
 cd android && ./gradlew assembleRelease
 ```
 
-### 一开始运行就闪退问题
-创建assets
-```
-mkdir -p android/app/src/main/assets
-```
-
 ###  指定模拟器运行
 ```
 react-native run-ios --simulator "iPhone 8"
 ```
+
+PS：[React Native 问题汇总](https://agoninemo.github.io/blog/2018/11/15/RN%E9%97%AE%E9%A2%98%E6%B1%87%E6%80%BB/)
